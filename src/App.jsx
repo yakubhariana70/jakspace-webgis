@@ -5,7 +5,7 @@ import Storytelling from "./pages/Storytelling/Storytelling";
 import DirectionMap from "./pages/DirectionMap/DirectionMap";
 
 //|| LIBRARY
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 
 // || STYLE
 import "./App.css";
