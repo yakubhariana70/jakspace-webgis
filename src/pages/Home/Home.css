@@ -1,0 +1,67 @@
+#home-page {
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  position: absolute;
+  width: 100%;
+  flex: 2 2 10vh;
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-nav {
+  width: 95vw;
+  /* border: 1px solid limegreen; */
+  border-radius: 3rem;
+  background-color: white;
+}
+
+.home-picture {
+    /* height: 40vh; */
+    flex: 1 1 50vh;
+    border: 1px solid gray;
+    background-image: url("../../assets/jakarta-home.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.home-content {
+  flex: 1 1 50vh;
+  position: relative;
+  display: flex;
+  padding: 4rem 4rem ;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+
+.hero-section{
+  width: 40vw;
+}
+
+.hero-section h1{
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.hero-section p{
+  font-size: large;
+}
+
+.hero-section .btn{
+  margin-top: 1.5rem;
+}
+
+/* PHONE */
+@media (max-height: 576px), screen and (orientation: portrait) {
+  .home-content{
+    padding: 3rem 2rem;
+  }
+  .hero-section{
+    width: 100%;
+  }
+}

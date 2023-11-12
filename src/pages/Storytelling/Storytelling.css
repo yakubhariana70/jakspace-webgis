@@ -1,0 +1,48 @@
+#storytelling-page {
+  display: flex;
+  height: 100vh;
+}
+
+#story-container {
+  position: relative;
+  flex-basis: 40vw;
+  /* border: 1px solid gray; */
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+#story-container nav {
+    position: sticky;
+    top: 0;
+    background-color: white;
+}
+
+#story-container #information {
+  padding: 2rem;
+}
+
+#story-container h1 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+#story-mapbox {
+  flex-basis: 60vw;
+  /* border: 1px solid gray; */
+}
+
+/* PHONE */
+@media (max-height: 576px), screen and (orientation: portrait) {
+  #storytelling-page {
+    flex-flow: column-reverse ;
+  }
+
+  #story-container{
+    flex-basis: 50vh;
+    overflow-y: scroll;
+  }
+
+  #story-mapbox {
+    flex-basis: 50vh;
+  }
+
+}
