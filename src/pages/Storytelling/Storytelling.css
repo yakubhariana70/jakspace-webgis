@@ -27,9 +27,15 @@
 
 #story-mapbox {
   flex-basis: 60vw;
+  width: 60vw;
+  height: 100vh;
   /* border: 1px solid gray; */
 }
 
+#story-mapbox .map-container {
+    height: 100vh;
+    width: 60vw;
+  }
 /* PHONE */
 @media (max-height: 576px), screen and (orientation: portrait) {
   #storytelling-page {
@@ -44,5 +50,8 @@
   #story-mapbox {
     flex-basis: 50vh;
   }
-
+  #story-mapbox .map-container {
+    height: 50vh;
+    width: 100vw;
+  }
 }

@@ -1,10 +1,39 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
+import mapboxgl from "mapbox-gl";
 import NavigationBar from "../../components/NavigationBar";
 
 // CSS
 import "./Storytelling.css";
 
+mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_KEY;
+
 const Storytelling = () => {
+  const mapContainer = useRef(null);
+  const map = useRef(null);
+  const [lng, setLng] = useState(106.827);
+  const [lat, setLat] = useState(-6.175);
+  const [zoom, setZoom] = useState(10);
+  const [basemap, setBasemap] = useState("dawn");
+
+  useEffect(() => {
+    if (map.current) return;
+    map.current = new mapboxgl.Map({
+      container: mapContainer.current,
+      // style: "mapbox://styles/mapbox/streets-v12",
+      center: [lng, lat],
+      zoom: zoom,
+      pitch: 15,
+    });
+
+    // AKTIVASI STYLE MAPBOX STANDARD
+    map.current.on("style.load", () => {
+      map.current.setConfigProperty("basemap", "lightPreset", basemap);
+    });
+
+    map.current.addControl(new mapboxgl.NavigationControl());
+    map.current.addControl(new mapboxgl.FullscreenControl());
+  }, [basemap]);
+
   return (
     <div id="storytelling-page">
       <section id="story-container">
@@ -35,7 +64,9 @@ const Storytelling = () => {
           </p>
         </main>
       </section>
-      <section id="story-mapbox"></section>
+      <section id="story-mapbox">
+        <div ref={mapContainer} className="map-container" />
+      </section>
     </div>
   );
 };

@@ -17,8 +17,6 @@ const DirectionMap = () => {
   const [zoom, setZoom] = useState(10);
   const [basemap, setBasemap] = useState("dawn");
   const [isDirectionActive, setIsDirectionActive] = useState(true);
-  const [showWisataLayer, setShowWisataLayer] = useState(true);
-  const [showRouteLayer, setShowRouteLayer] = useState(false);
 
   useEffect(() => {
     if (map.current) return;
