@@ -1,0 +1,7 @@
+{
+"type": "FeatureCollection",
+"name": "bandara",
+"features": [
+{ "type": "Feature", "properties": { "OBJECTID": 1.0, "NAMOBJ": "Bandara Halim Perdanakusuma" }, "geometry": { "type": "Point", "coordinates": [ 106.884561164000047, -6.26931323499997, 0.0 ] } }
+]
+}

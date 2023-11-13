@@ -1,0 +1,19 @@
+{
+"type": "FeatureCollection",
+"name": "stasiun-mrt",
+"features": [
+{ "type": "Feature", "properties": { "id": 1, "NAMOBJ": null }, "geometry": { "type": "Point", "coordinates": [ 106.823006169338683, -6.193008354031943 ] } },
+{ "type": "Feature", "properties": { "id": 2, "NAMOBJ": null }, "geometry": { "type": "Point", "coordinates": [ 106.823131540063898, -6.200681663794883 ] } },
+{ "type": "Feature", "properties": { "id": 3, "NAMOBJ": null }, "geometry": { "type": "Point", "coordinates": [ 106.821492234157176, -6.208873906300556 ] } },
+{ "type": "Feature", "properties": { "id": 4, "NAMOBJ": null }, "geometry": { "type": "Point", "coordinates": [ 106.817958272143997, -6.214997571648506 ] } },
+{ "type": "Feature", "properties": { "id": 5, "NAMOBJ": null }, "geometry": { "type": "Point", "coordinates": [ 106.808923962982334, -6.222479884132042 ] } },
+{ "type": "Feature", "properties": { "id": 6, "NAMOBJ": null }, "geometry": { "type": "Point", "coordinates": [ 106.802477828380859, -6.226661849137876 ] } },
+{ "type": "Feature", "properties": { "id": 7, "NAMOBJ": "ASEAN" }, "geometry": { "type": "Point", "coordinates": [ 106.798423816986642, -6.238823345003571 ] } },
+{ "type": "Feature", "properties": { "id": 8, "NAMOBJ": "BLOK M BCA" }, "geometry": { "type": "Point", "coordinates": [ 106.798118874768406, -6.24447408466783 ] } },
+{ "type": "Feature", "properties": { "id": 9, "NAMOBJ": "BLOK A" }, "geometry": { "type": "Point", "coordinates": [ 106.797138843385966, -6.255740109143941 ] } },
+{ "type": "Feature", "properties": { "id": 10, "NAMOBJ": "HAJI NAWI" }, "geometry": { "type": "Point", "coordinates": [ 106.79734699164419, -6.266685238388633 ] } },
+{ "type": "Feature", "properties": { "id": 11, "NAMOBJ": "CIPETE RAYA" }, "geometry": { "type": "Point", "coordinates": [ 106.797316636689871, -6.278293840206397 ] } },
+{ "type": "Feature", "properties": { "id": 12, "NAMOBJ": "FATMAWATI" }, "geometry": { "type": "Point", "coordinates": [ 106.792458788919475, -6.292457680221812 ] } },
+{ "type": "Feature", "properties": { "id": 13, "NAMOBJ": "LEBAK BULUS GRAB" }, "geometry": { "type": "Point", "coordinates": [ 106.774839477041695, -6.289313528471063 ] } }
+]
+}

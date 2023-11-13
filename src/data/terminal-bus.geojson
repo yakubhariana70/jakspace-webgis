@@ -1,0 +1,24 @@
+{
+"type": "FeatureCollection",
+"name": "terminal-bus",
+"features": [
+{ "type": "Feature", "properties": { "OBJECTID": 1.0, "NAMOBJ": "Terminal Pulogadung", "REMARK": "Terminal Penumpang Tipe B", "TIPE": null }, "geometry": { "type": "Point", "coordinates": [ 106.909326789000033, -6.182343801999934 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 2.0, "NAMOBJ": "Terminal Pulo Gebang", "REMARK": "Terminal Penumpang Tipe A", "TIPE": null }, "geometry": { "type": "Point", "coordinates": [ 106.952169412000046, -6.211988460999976 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 3.0, "NAMOBJ": "Terminal Kampung Rambutan", "REMARK": "Terminal Penumpang Tipe A", "TIPE": null }, "geometry": { "type": "Point", "coordinates": [ 106.882321723000075, -6.309450352999932 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 4.0, "NAMOBJ": "Terminal Kalideres", "REMARK": "Terminal Penumpang Tipe A", "TIPE": null }, "geometry": { "type": "Point", "coordinates": [ 106.705468998000072, -6.154729599999939 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 5.0, "NAMOBJ": "Terminal Grogol", "REMARK": "Terminal Penumpang Tipe B", "TIPE": null }, "geometry": { "type": "Point", "coordinates": [ 106.790748154000084, -6.166506244999937 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 6.0, "NAMOBJ": "Terminal Tanjung Priok", "REMARK": "Terminal Penumpang Tipe A", "TIPE": null }, "geometry": { "type": "Point", "coordinates": [ 106.881103449000079, -6.109653474999959 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 7.0, "NAMOBJ": "Terminal Senen", "REMARK": "Terminal Penumpang Tipe B", "TIPE": null }, "geometry": { "type": "Point", "coordinates": [ 106.842321738000066, -6.173815886999932 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 8.0, "NAMOBJ": "Terminal Kampung Melayu", "REMARK": "Terminal Penumpang Tipe B", "TIPE": null }, "geometry": { "type": "Point", "coordinates": [ 106.866687211000055, -6.224780333999945 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 9.0, "NAMOBJ": "Terminal Blok M", "REMARK": "Terminal Penumpang Tipe B", "TIPE": null }, "geometry": { "type": "Point", "coordinates": [ 106.800900434000084, -6.243460529999936 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 10.0, "NAMOBJ": "Terminal Pasar Minggu", "REMARK": "Terminal Penumpang Tipe B", "TIPE": null }, "geometry": { "type": "Point", "coordinates": [ 106.843200636000063, -6.283573930999978 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 11.0, "NAMOBJ": "Terminal Pinang Ranti", "REMARK": "Terminal Penumpang Tipe B", "TIPE": null }, "geometry": { "type": "Point", "coordinates": [ 106.885767117000057, -6.291344002999949 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 12.0, "NAMOBJ": "Terminal Klender", "REMARK": "Terminal Penumpang Tipe B", "TIPE": null }, "geometry": { "type": "Point", "coordinates": [ 106.932387549000055, -6.221075525999936 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 13.0, "NAMOBJ": "Terminal Muara Angke", "REMARK": "Terminal Penumpang Tipe B", "TIPE": null }, "geometry": { "type": "Point", "coordinates": [ 106.773269988000038, -6.109254054999951 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 14.0, "NAMOBJ": "Terminal Rawabuaya", "REMARK": "Terminal Penumpang Tipe B", "TIPE": null }, "geometry": { "type": "Point", "coordinates": [ 106.725703267000085, -6.159837956999979 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 15.0, "NAMOBJ": "Terminal Cililitan", "REMARK": "Terminal Penumpang Tipe B", "TIPE": null }, "geometry": { "type": "Point", "coordinates": [ 106.866233940000086, -6.261170341999957 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 16.0, "NAMOBJ": "Terminal Manggarai", "REMARK": "Terminal Penumpang Tipe B", "TIPE": null }, "geometry": { "type": "Point", "coordinates": [ 106.847397878000038, -6.20934886799995 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 17.0, "NAMOBJ": "Terminal Rawamangun", "REMARK": "Terminal Penumpang Tipe B", "TIPE": null }, "geometry": { "type": "Point", "coordinates": [ 106.891255730000069, -6.197775268999976 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 18.0, "NAMOBJ": "Terminal Ragunan", "REMARK": "Terminal Penumpang Tipe B", "TIPE": null }, "geometry": { "type": "Point", "coordinates": [ 106.820228249000081, -6.305532829999947 ] } }
+]
+}

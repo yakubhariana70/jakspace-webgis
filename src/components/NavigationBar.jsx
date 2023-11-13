@@ -18,7 +18,7 @@ const NavigationBar = () => {
           >
             <Offcanvas.Header closeButton>
               <Offcanvas.Title id="offcanvas-navbar-label">
-                <h2>
+                <h2 style={{ fontWeight: "bold" }}>
                   <span>Jakarta Tourism </span>
                   <br />
                   <span>Map</span>
@@ -26,7 +26,10 @@ const NavigationBar = () => {
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
-              <Nav className="ms-auto fw-semibold">
+              <Nav
+                className="ms-auto fw-semibold"
+                style={{ fontSize: "calc(12px + 0.390625vw)" }}
+              >
                 <Nav.Link href="/">Home</Nav.Link>
                 <Nav.Link href="/jakspace-webgis/#/direction-map">Map</Nav.Link>
                 <Nav.Link href="/jakspace-webgis/#/storytelling">
