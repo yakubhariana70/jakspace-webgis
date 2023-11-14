@@ -22,10 +22,36 @@ const Storytelling = () => {
   const [basemap, setBasemap] = useState("dawn");
 
   // Intersection Observer
-  const { ref: sectionOne, inView: oneVisible } = useInView({ threshold: 0.8 });
-  const { ref: sectionTwo, inView: twoVisible } = useInView({ threshold: 0.8 });
+  const { ref: sectionOne, inView: oneVisible } = useInView({ threshold: 0.6 });
+  const { ref: sectionTwo, inView: twoVisible } = useInView({ threshold: 0.6 });
   const { ref: sectionThree, inView: threeVisible } = useInView({
-    threshold: 0.8,
+    threshold: 0.6,
+  });
+  const { ref: sectionFour, inView: fourVisible } = useInView({
+    threshold: 0.6,
+  });
+  const { ref: sectionFive, inView: fiveVisible } = useInView({
+    threshold: 0.6,
+  });
+  const { ref: sectionSix, inView: sixVisible } = useInView({ threshold: 0.6 });
+  const { ref: sectionSeven, inView: sevenVisible } = useInView({
+    threshold: 0.6,
+  });
+  const { ref: sectionEight, inView: eightVisible } = useInView({
+    threshold: 0.6,
+  });
+  const { ref: sectionNine, inView: nineVisible } = useInView({
+    threshold: 0.6,
+  });
+  const { ref: sectionTen, inView: tenVisible } = useInView({ threshold: 0.6 });
+  const { ref: sectionEleven, inView: elevenVisible } = useInView({
+    threshold: 0.6,
+  });
+  const { ref: sectionTwelve, inView: twelveVisible } = useInView({
+    threshold: 0.6,
+  });
+  const { ref: sectionThirteen, inView: thirteenVisible } = useInView({
+    threshold: 0.6,
   });
 
   useEffect(() => {
@@ -108,8 +134,18 @@ const Storytelling = () => {
   };
   // TRIGGER FLYFUNCTION
   useEffect(() => {
-    console.log("One:", oneVisible, "Two:", twoVisible);
-    console.log(config);
+    console.log(
+      "One:",
+      oneVisible,
+      "Two:",
+      twoVisible,
+      "Three:",
+      threeVisible,
+      "Four:",
+      fourVisible,
+      "Seven:",
+      sevenVisible
+    );
 
     if (map.current && map.current.isStyleLoaded()) {
       // Pastikan peta sudah dimuat sebelum melakukan tindakan apapun
@@ -122,9 +158,53 @@ const Storytelling = () => {
       } else if (threeVisible) {
         onChangeChapter(config.chapters[2]);
         console.log("Fly to Loc 3");
+      } else if (fourVisible) {
+        onChangeChapter(config.chapters[3]);
+        console.log("Fly to Loc 4");
+      } else if (fiveVisible) {
+        onChangeChapter(config.chapters[4]);
+        console.log("Fly to Loc 5");
+      } else if (sixVisible) {
+        onChangeChapter(config.chapters[5]);
+        console.log("Fly to Loc 6");
+      } else if (sevenVisible) {
+        onChangeChapter(config.chapters[6]);
+        console.log("Fly to Loc 7");
+      } else if (eightVisible) {
+        onChangeChapter(config.chapters[7]);
+        console.log("Fly to Loc 8");
+      } else if (nineVisible) {
+        onChangeChapter(config.chapters[8]);
+        console.log("Fly to Loc 9");
+      } else if (tenVisible) {
+        onChangeChapter(config.chapters[9]);
+        console.log("Fly to Loc 10");
+      } else if (elevenVisible) {
+        onChangeChapter(config.chapters[10]);
+        console.log("Fly to Loc 11");
+      } else if (twelveVisible) {
+        onChangeChapter(config.chapters[11]);
+        console.log("Fly to Loc 12");
+      } else if (thirteenVisible) {
+        onChangeChapter(config.chapters[12]);
+        console.log("Fly to Loc 13");
       }
     }
-  }, [oneVisible, twoVisible, threeVisible]);
+  }, [
+    oneVisible,
+    twoVisible,
+    threeVisible,
+    fourVisible,
+    fiveVisible,
+    sixVisible,
+    sevenVisible,
+    eightVisible,
+    nineVisible,
+    tenVisible,
+    elevenVisible,
+    twelveVisible,
+    thirteenVisible,
+  ]);
 
   return (
     <div id="storytelling-page">
@@ -141,6 +221,36 @@ const Storytelling = () => {
           </section>
           <section className="chapter" ref={sectionThree}>
             <TourismStory story={config.chapters[2]} />
+          </section>
+          <section className="chapter" ref={sectionFour}>
+            <TourismStory story={config.chapters[3]} />
+          </section>
+          <section className="chapter" ref={sectionFive}>
+            <TourismStory story={config.chapters[4]} />
+          </section>
+          <section className="chapter" ref={sectionSix}>
+            <TourismStory story={config.chapters[5]} />
+          </section>
+          <section className="chapter" ref={sectionSeven}>
+            <TourismStory story={config.chapters[6]} />
+          </section>
+          <section className="chapter" ref={sectionEight}>
+            <TourismStory story={config.chapters[7]} />
+          </section>
+          <section className="chapter" ref={sectionNine}>
+            <TourismStory story={config.chapters[8]} />
+          </section>
+          <section className="chapter" ref={sectionTen}>
+            <TourismStory story={config.chapters[9]} />
+          </section>
+          <section className="chapter" ref={sectionEleven}>
+            <TourismStory story={config.chapters[10]} />
+          </section>
+          <section className="chapter" ref={sectionTwelve}>
+            <TourismStory story={config.chapters[11]} />
+          </section>
+          <section className="chapter" ref={sectionThirteen}>
+            <TourismStory story={config.chapters[12]} />
           </section>
         </main>
       </section>
