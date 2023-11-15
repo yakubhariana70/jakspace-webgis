@@ -1,10 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 // import wisatapoint from "../../data/poi-fasil.geojson"
 import { Button } from "react-bootstrap";
 
 // CSS
 import "./DirectionMap.css";
+
+import wisataData from "../../data/wisata.json";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_KEY;
 
@@ -17,6 +19,11 @@ const DirectionMap = () => {
   const [zoom, setZoom] = useState(10);
   const [basemap, setBasemap] = useState("dawn");
   const [isDirectionActive, setIsDirectionActive] = useState(true);
+  const [toggleLayer, setToggleLayer] = useState("wisata");
+
+  useEffect(() => {
+    console.log(wisataData);
+  }, []);
 
   useEffect(() => {
     if (map.current) return;
@@ -57,33 +64,32 @@ const DirectionMap = () => {
   }, [basemap]);
 
   // SETTING FITUR NAVIGATION
-  useEffect(() => {
-    if (!map.current) return;
-
-    if (isDirectionActive) {
-      if (!directionsControl.current) {
-        directionsControl.current = new MapboxDirections({
-          accessToken: mapboxgl.accessToken,
-          unit: "metric",
-        });
-        map.current.addControl(directionsControl.current, "top-left");
-      }
-    } else {
-      if (directionsControl.current) {
-        map.current.removeControl(directionsControl.current);
-        directionsControl.current = null;
-      }
-    }
-  }, [isDirectionActive]);
-
   const toggleDirection = () => {
-    setIsDirectionActive(!isDirectionActive);
+    setIsDirectionActive((prevState) => {
+      const newState = !prevState;
+
+      if (newState) {
+        if (!directionsControl.current) {
+          directionsControl.current = new MapboxDirections({
+            accessToken: mapboxgl.accessToken,
+            unit: "metric",
+          });
+          map.current.addControl(directionsControl.current, "top-left");
+        }
+      } else {
+        if (directionsControl.current) {
+          map.current.removeControl(directionsControl.current);
+          directionsControl.current = null;
+        }
+      }
+
+      return newState;
+    });
   };
 
   // MAP ADD LAYER
   useEffect(() => {
     map.current.on("load", () => {
-
       // Batas Administrasi JKT
       map.current.addSource("batas-administrasi", {
         type: "vector",
@@ -107,30 +113,144 @@ const DirectionMap = () => {
         },
       });
 
-      // Titik Lokasi Wisata
-      map.current.addSource("wisata", {
-        type: "vector",
-        // Use a URL for the value for the `data` property.
-        url: "mapbox://yakubhariana70.clowkli3b0yst1tla16udcbpz-3i4pg",
+      // // Titik Lokasi Wisata
+      // map.current.addSource("wisata", {
+      //   type: "geojson",
+      //   data: wisataData,
+      // });
+
+      // map.current.addLayer({
+      //   id: "point-wisata",
+      //   slot: "top",
+      //   type: "circle",
+      //   source: "wisata",
+      //   // "source-layer": "JS-wisata",
+      //   layout: {
+      //     // Make the layer visible by default.
+      //     visibility: "visible",
+      //   },
+      //   paint: {
+      //     "circle-radius": 4,
+      //     "circle-stroke-width": 1,
+      //     "circle-color": "limegreen",
+      //     "circle-stroke-color": "white",
+      //   },
+      // });
+
+      // Mengelompokkan titik wisata berdasarkan jenisnya
+      const jenisWisata = {
+        "Tempat Olahraga": [],
+        "Tempat Penyelenggaraan Acara": [],
+        "Tempat Perbelanjaan": [],
+        "Wisata Alam": [],
+        "Wisata Keluarga": [],
+        "Wisata Kuliner": [],
+        "Wisata Olahraga": [],
+        "Wisata Religi": [],
+        "Wisata Ruang Terbuka Hijau": [],
+        "Wisata Sejarah": [],
+        "Wisata Seni dan Budaya": [],
+      };
+
+      wisataData.features.forEach((feature) => {
+        const jenis = feature.properties.KT_WISATA;
+
+        if (jenisWisata[jenis]) {
+          jenisWisata[jenis].push(feature);
+          console.log(jenisWisata[jenis].push(feature));
+        }
       });
 
-      map.current.addLayer({
-        id: "point-wisata",
-        slot: "top",
-        type: "circle",
-        source: "wisata",
-        "source-layer": "JS-wisata",
-        layout: {
-          // Make the layer visible by default.
-          visibility: "visible",
-        },
-        paint: {
-          "circle-radius": 4,
-          "circle-stroke-width": 1,
-          "circle-color": "limegreen",
-          "circle-stroke-color": "white",
-        },
+      // Membuat layer baru untuk setiap jenis wisata yang terpisah
+      Object.keys(jenisWisata).forEach((jenis) => {
+        const sourceId = `wisata-${jenis}`;
+        const layerId = `point-wisata-${jenis}`;
+
+        map.current.addSource(sourceId, {
+          type: "geojson",
+          data: {
+            type: "FeatureCollection",
+            features: jenisWisata[jenis],
+          },
+        });
+
+        let circleColor = "#FF0000";
+
+        if (jenis === "Tempat Olahraga") {
+          circleColor = "black";
+        } else if (jenis === "Tempat Penyelenggaraan Acara") {
+          circleColor = "crimson";
+        } else if (jenis === "Tempat Perbelanjaan") {
+          circleColor = "indigo";
+        } else if (jenis === "Wisata Alam") {
+          circleColor = "darkblue";
+        } else if (jenis === "Wisata Keluarga") {
+          circleColor = "cyan";
+        } else if (jenis === "Wisata Kuliner") {
+          circleColor = "gold";
+        } else if (jenis === "Wisata Olahraga") {
+          circleColor = "yellow";
+        } else if (jenis === "Wisata Religi") {
+          circleColor = "blue";
+        } else if (jenis === "Wisata Ruang Terbuka Hijau") {
+          circleColor = "darkgreen";
+        } else if (jenis === "Wisata Sejarah") {
+          circleColor = "deeppink";
+        } else if (jenis === "Wisata Seni dan Budaya") {
+          circleColor = "deepskyblue";
+        }
+
+        map.current.addLayer({
+          id: layerId,
+          type: "circle",
+          source: sourceId,
+          layout: {
+            visibility: "visible",
+          },
+          paint: {
+            "circle-radius": 4,
+            "circle-stroke-width": 1,
+            "circle-color": circleColor,
+            "circle-stroke-color": "white",
+          },
+        });
+        // Set up the corresponding toggle button for each layer.
+        const link = document.createElement("a");
+        link.id = `toggle-${jenis}`; // ID untuk setiap toggle
+        link.href = "#";
+        link.textContent = jenis; // Teks untuk setiap toggle
+        link.className = "active";
+        link.setAttribute("data-layer-id", `point-wisata-${jenis}`);
+
+        // Show or hide layer when the toggle is clicked.
+        link.onclick = function (e) {
+          const clickedLayerId = this.getAttribute("data-layer-id");
+          e.preventDefault();
+          e.stopPropagation();
+
+          const visibility = map.current.getLayoutProperty(
+            clickedLayerId,
+            "visibility"
+          );
+
+          // Toggle layer visibility by changing the layout object's visibility property.
+          if (visibility === "visible") {
+            map.current.setLayoutProperty(clickedLayerId, "visibility", "none");
+            this.className = "";
+          } else {
+            this.className = "active";
+            map.current.setLayoutProperty(
+              clickedLayerId,
+              "visibility",
+              "visible"
+            );
+          }
+        };
+
+        const layers = document.getElementById("menu-wisata");
+        layers.appendChild(link);
       });
+
       // Titik Stasiun Kereta
       map.current.addSource("stasiun-kereta", {
         type: "vector",
@@ -279,11 +399,12 @@ const DirectionMap = () => {
         },
       });
     });
+
     // After the last frame rendered before the map enters an "idle" state.
     map.current.on("idle", () => {
       // If these two layers were not added to the map, abort
       if (
-        !map.current.getLayer("point-wisata") ||
+        // !map.current.getLayer("point-wisata") ||
         !map.current.getLayer("point-stasiun-kereta") ||
         !map.current.getLayer("point-stasiun-mrt") ||
         !map.current.getLayer("point-terminal-bus") ||
@@ -297,7 +418,7 @@ const DirectionMap = () => {
 
       // Enumerate ids of the layers.
       const toggleableLayerIds = [
-        "point-wisata",
+        // "point-wisata",
         "point-stasiun-kereta",
         "point-stasiun-mrt",
         "point-terminal-bus",
@@ -307,8 +428,20 @@ const DirectionMap = () => {
         "polygon-adm-jkt",
       ];
 
+      const layerNames = {
+        // "point-wisata": "Lokasi Wisata",
+        "point-stasiun-kereta": "Stasiun Kereta ",
+        "point-stasiun-mrt": "Stasiun MRT",
+        "point-terminal-bus": "Terminal Bus",
+        "point-halte-tj": "Halte Transjakarta",
+        "point-bandara": "Bandara",
+        "line-mrt": "Jalur MRT",
+        "polygon-adm-jkt": "Batas Administrasi",
+      };
+
       // Set up the corresponding toggle button for each layer.
       for (const id of toggleableLayerIds) {
+        const layerName = layerNames[id] || id;
         // Skip layers that already have a button set up.
         if (document.getElementById(id)) {
           continue;
@@ -318,54 +451,48 @@ const DirectionMap = () => {
         const link = document.createElement("a");
         link.id = id;
         link.href = "#";
-        link.textContent = id;
+        link.textContent = layerName;
         link.className = "active";
+        link.setAttribute("data-layer-id", id);
 
         // Show or hide layer when the toggle is clicked.
         link.onclick = function (e) {
-          const clickedLayer = this.textContent;
+          const clickedLayerId = this.getAttribute("data-layer-id");
           e.preventDefault();
           e.stopPropagation();
 
           const visibility = map.current.getLayoutProperty(
-            clickedLayer,
+            clickedLayerId,
             "visibility"
           );
 
           // Toggle layer visibility by changing the layout object's visibility property.
           if (visibility === "visible") {
-            map.current.setLayoutProperty(clickedLayer, "visibility", "none");
+            map.current.setLayoutProperty(clickedLayerId, "visibility", "none");
             this.className = "";
           } else {
             this.className = "active";
             map.current.setLayoutProperty(
-              clickedLayer,
+              clickedLayerId,
               "visibility",
               "visible"
             );
           }
         };
 
-        const layers = document.getElementById("menu");
+        const layers = document.getElementById("menu-fitur");
         layers.appendChild(link);
       }
     });
-  },[]);
+  }, []);
 
   // MAP COMPONENT (FUNCTION ATAU CONTROL)
   // POPUP
   useEffect(() => {
-    // When a click event occurs on a feature in the places layer, open a popup at the
-    // location of the feature, with description HTML from its properties.
-    map.current.on("click", "wisata-layer", (e) => {
-      // Copy coordinates array.
+    map.current.on("click", "point-wisata", (e) => {
       const coordinates = e.features[0].geometry.coordinates.slice();
       const description = e.features[0].properties.NAMOBJ;
-      console.log("ini koordinat:", coordinates);
-      console.log("ini deskripsi:", description);
-      // Ensure that if the map is zoomed out such that multiple
-      // copies of the feature are visible, the popup appears
-      // over the copy being pointed to.
+
       while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
         coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
       }
@@ -410,8 +537,27 @@ const DirectionMap = () => {
         >
           {isDirectionActive ? "Turn Off Direction" : "Turn On Direction"}
         </Button>
+        <Button  variant="danger" onClick={() => {setToggleLayer("wisata")}}>
+          Toggle Wisata
+        </Button>
+        <Button onClick={() => {setToggleLayer("fitur")}}>
+          Toggle Fitur
+        </Button>
       </div>
-      <div id="menu"></div>
+      <div id="toggle-layer">
+        <div
+          id="menu-wisata"
+          className={toggleLayer === "wisata" ? "active" : "inactive"}
+        >
+          {/* Konten atau layer wisata */}
+        </div>
+        <div
+          id="menu-fitur"
+          className={toggleLayer === "fitur" ? "active" : "inactive"}
+        >
+          {/* Konten atau layer fitur */}
+        </div>
+      </div>
       <div ref={mapContainer} className="map-container" />
     </div>
   );

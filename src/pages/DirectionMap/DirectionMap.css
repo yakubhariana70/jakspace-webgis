@@ -3,7 +3,7 @@
   width: 100vw;
 }
 
-.feature-toggle{
+.feature-toggle {
   background-color: rgba(35, 55, 75, 0.9);
   color: #fff;
   padding: 6px 12px;
@@ -28,41 +28,113 @@
   border-radius: 4px;
 }
 
-#menu {
-background: #fff;
-position: absolute;
-z-index: 1;
-bottom: 1rem;
-right: 10px;
-border-radius: 1rem;
-width: 120px;
-border: 1px solid rgba(0, 0, 0, 0.4);
+/* WISATA  */
+
+#menu-wisata {
+  background: #404040;
+  border-radius: 0.5  rem;
+  width: 120px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
+    rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
 }
- 
-#menu a {
-font-size: 13px;
-color: #404040;
-display: block;
-padding: 10px;
-text-decoration: none;
-border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-text-align: center;
+
+#menu-wisata :first-child {
+  border-radius: 0.5rem 0.5rem 0rem 0rem;
 }
- 
-#menu a:last-child {
-border: none;
+
+#menu-wisata :last-child {
+  border-radius: 0rem 0rem 0.5rem 0.5rem;
 }
- 
-#menu a:hover {
-background-color: #f8f8f8;
-color: #404040;
+
+#menu-wisata a {
+  font-size: 13px;
+  color: #fff;
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  text-align: center;
 }
- 
-#menu a.active {
-background-color: #3887be;
-color: #ffffff;
+
+#menu-wisata a:last-child {
+  border: none;
 }
- 
-#menu a.active:hover {
-background: #3074a4;
+
+#menu-wisata a:hover {
+  background-color: #404040;
+  color: #fff;
+}
+
+#menu-wisata a.active {
+  background-color: limegreen;
+  color: #ffffff;
+}
+
+#menu-wisata a.active:hover {
+  background: limegreen;
+}
+
+/* FITUR  */
+#menu-fitur {
+  background: #fff;
+  border-radius: 0.5rem;
+  width: 120px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
+    rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+}
+
+#menu-fitur :first-child {
+  border-radius: 0.5rem 0.5rem 0rem 0rem;
+}
+
+#menu-fitur :last-child {
+  border-radius: 0rem 0rem 0.5rem 0.5rem;
+}
+
+#menu-fitur a {
+  font-size: 13px;
+  color: #404040;
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  text-align: center;
+}
+
+#menu-fitur a:last-child {
+  border: none;
+}
+
+#menu-fitur a:hover {
+  background-color: #f8f8f8;
+  color: #404040;
+}
+
+#menu-fitur a.active {
+  background-color: #3887be;
+  color: #ffffff;
+}
+
+#menu-fitur a.active:hover {
+  background: #3074a4;
+}
+
+
+#toggle-layer{
+  display: flex;
+  align-items: flex-end;
+  position: absolute;
+  z-index: 1;
+  bottom: 1rem;
+  right: 10px;
+  gap: 10px;
+}
+
+
+#toggle-layer .inactive {
+  display: none;
+}
+
+#toggle-layer .active {
+  display: block; 
 }
