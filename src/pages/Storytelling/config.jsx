@@ -73,8 +73,6 @@ var config = {
           "fill-opacity": 0.7,
         },
       },
-      onChapterEnter: [],
-      onChapterExit: [],
     },
     {
       id: "chapter-1",

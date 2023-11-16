@@ -1,7 +1,5 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
-// import wisatapoint from "../../data/poi-fasil.geojson"
-import { Button } from "react-bootstrap";
 
 // CSS
 import "./DirectionMap.css";
@@ -99,7 +97,7 @@ const DirectionMap = () => {
 
       map.current.addLayer({
         id: "polygon-adm-jkt",
-        slot: "bottom",
+        slot: "middle",
         type: "fill",
         source: "batas-administrasi",
         "source-layer": "JS-batas-administrasi",
@@ -108,35 +106,59 @@ const DirectionMap = () => {
           visibility: "visible",
         },
         paint: {
-          "fill-color": "tomato",
-          "fill-opacity": 0.5,
+          "fill-color": "#009B98",
+          "fill-opacity": 0.15,
           "fill-outline-color": "white",
         },
       });
 
-      // // Titik Lokasi Wisata
-      // map.current.addSource("wisata", {
-      //   type: "geojson",
-      //   data: wisataData,
-      // });
+      // Jalur MRT
+      map.current.addSource("mrt-route", {
+        type: "vector",
+        url: "mapbox://yakubhariana70.clowknwwh1xm11no4makbjv3u-0rvb4",
+      });
 
-      // map.current.addLayer({
-      //   id: "point-wisata",
-      //   slot: "top",
-      //   type: "circle",
-      //   source: "wisata",
-      //   // "source-layer": "JS-wisata",
-      //   layout: {
-      //     // Make the layer visible by default.
-      //     visibility: "visible",
-      //   },
-      //   paint: {
-      //     "circle-radius": 4,
-      //     "circle-stroke-width": 1,
-      //     "circle-color": "limegreen",
-      //     "circle-stroke-color": "white",
-      //   },
-      // });
+      map.current.addLayer({
+        id: "line-mrt",
+        type: "line",
+        slot: "middle",
+        source: "mrt-route",
+        "source-layer": "JS-jalur-MRT",
+        layout: {
+          // Make the layer visible by default.
+          visibility: "visible",
+          "line-join": "round",
+          "line-cap": "round",
+        },
+        paint: {
+          "line-color": "#877b59",
+          "line-width": 2,
+        },
+      });
+
+      // Titik Lokasi Wisata
+      map.current.addSource("wisata", {
+        type: "geojson",
+        data: wisataData,
+      });
+
+      map.current.addLayer({
+        id: "point-wisata",
+        slot: "top",
+        type: "circle",
+        source: "wisata",
+        // "source-layer": "JS-wisata",
+        layout: {
+          // Make the layer visible by default.
+          visibility: "visible",
+        },
+        paint: {
+          "circle-radius": 4,
+          // "circle-stroke-width": 1,
+          "circle-color": "rgba(0, 0, 0, 0.01)",
+          // "circle-stroke-color": "white",
+        },
+      });
 
       // Mengelompokkan titik wisata berdasarkan jenisnya
       const jenisWisata = {
@@ -158,7 +180,6 @@ const DirectionMap = () => {
 
         if (jenisWisata[jenis]) {
           jenisWisata[jenis].push(feature);
-          console.log(jenisWisata[jenis].push(feature));
         }
       });
 
@@ -376,36 +397,13 @@ const DirectionMap = () => {
           "circle-stroke-color": "white",
         },
       });
-
-      // Jalur MRT
-      map.current.addSource("mrt-route", {
-        type: "vector",
-        url: "mapbox://yakubhariana70.clowknwwh1xm11no4makbjv3u-0rvb4",
-      });
-
-      map.current.addLayer({
-        id: "line-mrt",
-        type: "line",
-        source: "mrt-route",
-        "source-layer": "JS-jalur-MRT",
-        layout: {
-          // Make the layer visible by default.
-          visibility: "visible",
-          "line-join": "round",
-          "line-cap": "round",
-        },
-        paint: {
-          "line-color": "#877b59",
-          "line-width": 2,
-        },
-      });
     });
 
     // After the last frame rendered before the map enters an "idle" state.
     map.current.on("idle", () => {
       // If these two layers were not added to the map, abort
       if (
-        // !map.current.getLayer("point-wisata") ||
+        !map.current.getLayer("point-wisata") ||
         !map.current.getLayer("point-stasiun-kereta") ||
         !map.current.getLayer("point-stasiun-mrt") ||
         !map.current.getLayer("point-terminal-bus") ||
@@ -490,28 +488,46 @@ const DirectionMap = () => {
   // MAP COMPONENT (FUNCTION ATAU CONTROL)
   // POPUP
   useEffect(() => {
-    map.current.on("click", "point-wisata", (e) => {
-      const coordinates = e.features[0].geometry.coordinates.slice();
-      const description = e.features[0].properties.NAMOBJ;
+    const clickListener = (e) => {
+      if (e.features.length > 0) {
+        const coordinates = e.features[0].geometry.coordinates.slice();
+        const description = e.features[0].properties.NAMOBJ;
 
-      while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+          coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
+
+        new mapboxgl.Popup()
+          .setLngLat(coordinates)
+          .setHTML(description)
+          .addTo(map.current);
       }
+    };
 
-      new mapboxgl.Popup()
-        .setLngLat(coordinates)
-        .setHTML(description)
-        .addTo(map.current);
-    });
-    // Change the cursor to a pointer when the mouse is over the places layer.
+    map.current.on("click", "point-wisata", clickListener);
+    map.current.on("click", "point-stasiun-kereta", clickListener);
+    map.current.on("click", "point-stasiun-mrt", clickListener);
+    map.current.on("click", "point-terminal-bus", clickListener);
+    map.current.on("click", "point-halte-tj", clickListener);
+
     map.current.on("mouseenter", "places", () => {
       map.current.getCanvas().style.cursor = "pointer";
     });
 
-    // Change it back to a pointer when it leaves.
     map.current.on("mouseleave", "places", () => {
       map.current.getCanvas().style.cursor = "";
     });
+
+    // Membersihkan event listener saat komponen di-unmount
+    return () => {
+      map.current.off("click", "point-wisata", clickListener);
+      map.current.off("click", "point-stasiun-kereta", clickListener);
+      map.current.off("click", "point-stasiun-mrt", clickListener);
+      map.current.off("click", "point-terminal-bus", clickListener);
+      map.current.off("click", "point-halte-tj", clickListener);
+      map.current.off("mouseenter", "places");
+      map.current.off("mouseleave", "places");
+    };
   }, []);
 
   // READ LONGLAT
@@ -547,7 +563,11 @@ const DirectionMap = () => {
           >
             <img
               className="icon"
-              src={isDirectionActive ? "vite.svg" : "jakarta-tourism.svg"}
+              src={
+                isDirectionActive
+                  ? "icon/direction-on.svg"
+                  : "icon/direction-off.svg"
+              }
               alt="transportasi-layer"
             />
           </button>
@@ -571,7 +591,9 @@ const DirectionMap = () => {
         </div>
         <div id="button-layer-bar">
           <button
-            className= {toggleLayer === "wisata" ? "click-toggle active" : "click-toggle"}
+            className={
+              toggleLayer === "wisata" ? "click-toggle active" : "click-toggle"
+            }
             onClick={() => {
               onChangeLayer("wisata");
             }}
@@ -579,13 +601,19 @@ const DirectionMap = () => {
             <img
               className="icon"
               src={
-                toggleLayer === "wisata" ? "vite.svg" : "jakarta-tourism.svg"
+                toggleLayer === "wisata"
+                  ? "icon/location-on.svg"
+                  : "icon/location-off.svg"
               }
               alt="wisata-layer"
             />
           </button>
           <button
-            className={toggleLayer === "transportasi" ? "click-toggle active" : "click-toggle"}
+            className={
+              toggleLayer === "transportasi"
+                ? "click-toggle active"
+                : "click-toggle"
+            }
             onClick={() => {
               onChangeLayer("transportasi");
             }}
@@ -594,8 +622,8 @@ const DirectionMap = () => {
               className="icon"
               src={
                 toggleLayer === "transportasi"
-                  ? "vite.svg"
-                  : "jakarta-tourism.svg"
+                  ? "icon/transportasi-on.svg"
+                  : "icon/transportasi-off.svg"
               }
               alt="transportasi-layer"
             />

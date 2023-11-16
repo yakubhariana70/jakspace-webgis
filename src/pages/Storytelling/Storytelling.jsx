@@ -24,36 +24,36 @@ const Storytelling = () => {
   const [wisataByCategory, setWisataByCategory] = useState({});
 
   // Intersection Observer
-  const { ref: sectionOne, inView: oneVisible } = useInView({ threshold: 0.6 });
-  const { ref: sectionTwo, inView: twoVisible } = useInView({ threshold: 0.6 });
+  const { ref: sectionOne, inView: oneVisible } = useInView({ threshold: 0.8 });
+  const { ref: sectionTwo, inView: twoVisible } = useInView({ threshold: 0.8 });
   const { ref: sectionThree, inView: threeVisible } = useInView({
-    threshold: 0.6,
+    threshold: 0.8,
   });
   const { ref: sectionFour, inView: fourVisible } = useInView({
-    threshold: 0.6,
+    threshold: 0.8,
   });
   const { ref: sectionFive, inView: fiveVisible } = useInView({
-    threshold: 0.6,
+    threshold: 0.8,
   });
-  const { ref: sectionSix, inView: sixVisible } = useInView({ threshold: 0.6 });
+  const { ref: sectionSix, inView: sixVisible } = useInView({ threshold: 0.8 });
   const { ref: sectionSeven, inView: sevenVisible } = useInView({
-    threshold: 0.6,
+    threshold: 0.8,
   });
   const { ref: sectionEight, inView: eightVisible } = useInView({
-    threshold: 0.6,
+    threshold: 0.8,
   });
   const { ref: sectionNine, inView: nineVisible } = useInView({
-    threshold: 0.6,
+    threshold: 0.8,
   });
-  const { ref: sectionTen, inView: tenVisible } = useInView({ threshold: 0.6 });
+  const { ref: sectionTen, inView: tenVisible } = useInView({ threshold: 0.8 });
   const { ref: sectionEleven, inView: elevenVisible } = useInView({
-    threshold: 0.6,
+    threshold: 0.8,
   });
   const { ref: sectionTwelve, inView: twelveVisible } = useInView({
-    threshold: 0.6,
+    threshold: 0.8,
   });
   const { ref: sectionThirteen, inView: thirteenVisible } = useInView({
-    threshold: 0.6,
+    threshold: 0.8,
   });
 
   useEffect(() => {
@@ -144,8 +144,7 @@ const Storytelling = () => {
 
   // ON CHANGE CHAPTER
   const onChangeChapter = (chapter) => {
-    const { category, layerID, sourceID, isLayerOn } =
-      chapter;
+    const { category, layerID, sourceID, isLayerOn } = chapter;
     const dataForCategory = wisataByCategory[category];
     console.log(category, dataForCategory);
     if (dataForCategory && isLayerOn) {
@@ -269,6 +268,44 @@ const Storytelling = () => {
     twelveVisible,
     thirteenVisible,
   ]);
+
+  // MAP COMPONENT (FUNCTION ATAU CONTROL)
+  // POPUP
+  useEffect(() => {
+    const clickListener = (e) => {
+      if (e.features.length > 0) {
+        const coordinates = e.features[0].geometry.coordinates.slice();
+        const description = e.features[0].properties.NAMOBJ;
+        console.log("ini deskripsi:", description);
+
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+          coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
+
+        new mapboxgl.Popup()
+          .setLngLat(coordinates)
+          .setHTML(description)
+          .addTo(map.current);
+      }
+    };
+
+    map.current.on("click", "titik-wisata", clickListener);
+
+    map.current.on("mouseenter", "places", () => {
+      map.current.getCanvas().style.cursor = "pointer";
+    });
+
+    map.current.on("mouseleave", "places", () => {
+      map.current.getCanvas().style.cursor = "";
+    });
+
+    // Membersihkan event listener saat komponen di-unmount
+    return () => {
+      map.current.off("click", "titik-wisata", clickListener);
+      map.current.off("mouseenter", "places");
+      map.current.off("mouseleave", "places");
+    };
+  }, []);
 
   return (
     <div id="storytelling-page">
