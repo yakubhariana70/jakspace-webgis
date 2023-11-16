@@ -8,6 +8,7 @@ import TourismStory from "./TourismStory";
 // CSS
 import "./Storytelling.css";
 
+import wisataData from "../../data/wisata.json";
 import config from "./config";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_KEY;
@@ -20,6 +21,7 @@ const Storytelling = () => {
   // const [zoom, setZoom] = useState(10);
   const [viewport, setViewport] = useState(config.chapters[0].location);
   const [basemap, setBasemap] = useState("dawn");
+  const [wisataByCategory, setWisataByCategory] = useState({});
 
   // Intersection Observer
   const { ref: sectionOne, inView: oneVisible } = useInView({ threshold: 0.6 });
@@ -68,7 +70,23 @@ const Storytelling = () => {
 
     map.current.addControl(new mapboxgl.NavigationControl());
     map.current.addControl(new mapboxgl.FullscreenControl());
-  }, [basemap]);
+
+    const categorizedData = wisataData.features.reduce((acc, feature) => {
+      const { KT_WISATA, ...otherProperties } = feature.properties;
+
+      if (feature.geometry && feature.geometry.coordinates) {
+        if (!acc[KT_WISATA]) {
+          acc[KT_WISATA] = [];
+        }
+
+        acc[KT_WISATA].push({ ...otherProperties, geometry: feature.geometry });
+      }
+
+      return acc;
+    }, {});
+    console.log(categorizedData["Wisata Olahraga"]);
+    setWisataByCategory(categorizedData);
+  }, [basemap, wisataData, wisataByCategory]);
 
   // ADD OR REMOVE LAYER
   const [activeLayers, setActiveLayers] = useState({
@@ -126,12 +144,58 @@ const Storytelling = () => {
 
   // ON CHANGE CHAPTER
   const onChangeChapter = (chapter) => {
-    flyToLocation(chapter.location);
-    removeChapterLayers(map.current, chapter);
-    if (chapter.isLayerOn) {
-      addChapterLayers(map.current, chapter);
+    const { category, layerID, sourceID, isLayerOn } =
+      chapter;
+    const dataForCategory = wisataByCategory[category];
+    console.log(category, dataForCategory);
+    if (dataForCategory && isLayerOn) {
+      removeChapterLayers(map.current);
+
+      map.current.addSource(sourceID, {
+        type: "geojson",
+        data: {
+          type: "FeatureCollection",
+          features: dataForCategory.map((wisata) => ({
+            type: "Feature",
+            properties: { ...wisata },
+            geometry: {
+              type: "Point",
+              coordinates: [
+                wisata.geometry.coordinates[0],
+                wisata.geometry.coordinates[1],
+              ],
+            },
+          })),
+        },
+      });
+
+      map.current.addLayer({
+        id: layerID,
+        source: sourceID,
+        type: "circle",
+        paint: {
+          "circle-radius": 4,
+          "circle-stroke-width": 1,
+          "circle-color": "chocolate",
+          "circle-stroke-color": "white",
+        },
+      });
+
+      map.current.setLayoutProperty(layerID, "visibility", "visible");
+
+      setActiveLayers({ layerID: layerID, sourceID: sourceID });
+      flyToLocation(chapter.location);
+    } else if (!dataForCategory) {
+      flyToLocation(chapter.location);
+      removeChapterLayers(map.current, chapter);
+      if (isLayerOn) {
+        addChapterLayers(map.current, chapter);
+      }
+    } else {
+      removeChapterLayers(map.current);
     }
   };
+
   // TRIGGER FLYFUNCTION
   useEffect(() => {
     console.log(

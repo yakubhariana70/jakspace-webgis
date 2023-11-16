@@ -19,12 +19,13 @@ const DirectionMap = () => {
   const [zoom, setZoom] = useState(10);
   const [basemap, setBasemap] = useState("dawn");
   const [isDirectionActive, setIsDirectionActive] = useState(true);
-  const [toggleLayer, setToggleLayer] = useState("wisata");
+  const [toggleLayer, setToggleLayer] = useState(null);
 
   useEffect(() => {
     console.log(wisataData);
   }, []);
 
+  // LOAD MAP AND CONTROLS
   useEffect(() => {
     if (map.current) return;
     map.current = new mapboxgl.Map({
@@ -63,7 +64,7 @@ const DirectionMap = () => {
     }
   }, [basemap]);
 
-  // SETTING FITUR NAVIGATION
+  // SETTING FITUR DIRECTION
   const toggleDirection = () => {
     setIsDirectionActive((prevState) => {
       const newState = !prevState;
@@ -480,7 +481,7 @@ const DirectionMap = () => {
           }
         };
 
-        const layers = document.getElementById("menu-fitur");
+        const layers = document.getElementById("menu-transportasi");
         layers.appendChild(link);
       }
     });
@@ -502,9 +503,6 @@ const DirectionMap = () => {
         .setHTML(description)
         .addTo(map.current);
     });
-  }, []);
-
-  useEffect(() => {
     // Change the cursor to a pointer when the mouse is over the places layer.
     map.current.on("mouseenter", "places", () => {
       map.current.getCanvas().style.cursor = "pointer";
@@ -514,7 +512,7 @@ const DirectionMap = () => {
     map.current.on("mouseleave", "places", () => {
       map.current.getCanvas().style.cursor = "";
     });
-  });
+  }, []);
 
   // READ LONGLAT
   useEffect(() => {
@@ -526,23 +524,37 @@ const DirectionMap = () => {
     });
   });
 
+  // TOGGLE LAYER
+  const onChangeLayer = (toggle) => {
+    if (toggleLayer !== toggle) {
+      setToggleLayer(toggle);
+    } else {
+      setToggleLayer(null);
+    }
+  };
+
   return (
     <div className="direction-map">
-      <div className="sidebar">
-        {/* Longitude: {lng} | Latitude: {lat} | Zoom: {zoom} */}
-        <Button
-          variant={isDirectionActive ? "success" : "secondary"}
-          size="sm"
-          onClick={toggleDirection}
-        >
-          {isDirectionActive ? "Turn Off Direction" : "Turn On Direction"}
-        </Button>
-        <Button  variant="danger" onClick={() => {setToggleLayer("wisata")}}>
-          Toggle Wisata
-        </Button>
-        <Button onClick={() => {setToggleLayer("fitur")}}>
-          Toggle Fitur
-        </Button>
+      <div id="sidebar">
+        <div className="feature-bar">
+          <button
+            className={
+              isDirectionActive ? "click-toggle active" : "click-toggle"
+            }
+            onClick={() => {
+              toggleDirection();
+            }}
+          >
+            <img
+              className="icon"
+              src={isDirectionActive ? "vite.svg" : "jakarta-tourism.svg"}
+              alt="transportasi-layer"
+            />
+          </button>
+        </div>
+        {/* <div className="coordinate-bar">
+          Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
+        </div> */}
       </div>
       <div id="toggle-layer">
         <div
@@ -552,10 +564,42 @@ const DirectionMap = () => {
           {/* Konten atau layer wisata */}
         </div>
         <div
-          id="menu-fitur"
-          className={toggleLayer === "fitur" ? "active" : "inactive"}
+          id="menu-transportasi"
+          className={toggleLayer === "transportasi" ? "active" : "inactive"}
         >
           {/* Konten atau layer fitur */}
+        </div>
+        <div id="button-layer-bar">
+          <button
+            className= {toggleLayer === "wisata" ? "click-toggle active" : "click-toggle"}
+            onClick={() => {
+              onChangeLayer("wisata");
+            }}
+          >
+            <img
+              className="icon"
+              src={
+                toggleLayer === "wisata" ? "vite.svg" : "jakarta-tourism.svg"
+              }
+              alt="wisata-layer"
+            />
+          </button>
+          <button
+            className={toggleLayer === "transportasi" ? "click-toggle active" : "click-toggle"}
+            onClick={() => {
+              onChangeLayer("transportasi");
+            }}
+          >
+            <img
+              className="icon"
+              src={
+                toggleLayer === "transportasi"
+                  ? "vite.svg"
+                  : "jakarta-tourism.svg"
+              }
+              alt="transportasi-layer"
+            />
+          </button>
         </div>
       </div>
       <div ref={mapContainer} className="map-container" />
