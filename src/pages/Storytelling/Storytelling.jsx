@@ -24,36 +24,36 @@ const Storytelling = () => {
   const [wisataByCategory, setWisataByCategory] = useState({});
 
   // Intersection Observer
-  const { ref: sectionOne, inView: oneVisible } = useInView({ threshold: 0.8 });
-  const { ref: sectionTwo, inView: twoVisible } = useInView({ threshold: 0.8 });
+  const { ref: sectionOne, inView: oneVisible } = useInView({ threshold: 0.7 });
+  const { ref: sectionTwo, inView: twoVisible } = useInView({ threshold: 0.7 });
   const { ref: sectionThree, inView: threeVisible } = useInView({
-    threshold: 0.8,
+    threshold: 0.7,
   });
   const { ref: sectionFour, inView: fourVisible } = useInView({
-    threshold: 0.8,
+    threshold: 0.7,
   });
   const { ref: sectionFive, inView: fiveVisible } = useInView({
-    threshold: 0.8,
+    threshold: 0.7,
   });
-  const { ref: sectionSix, inView: sixVisible } = useInView({ threshold: 0.8 });
+  const { ref: sectionSix, inView: sixVisible } = useInView({ threshold: 0.7 });
   const { ref: sectionSeven, inView: sevenVisible } = useInView({
-    threshold: 0.8,
+    threshold: 0.7,
   });
   const { ref: sectionEight, inView: eightVisible } = useInView({
-    threshold: 0.8,
+    threshold: 0.7,
   });
   const { ref: sectionNine, inView: nineVisible } = useInView({
-    threshold: 0.8,
+    threshold: 0.7,
   });
-  const { ref: sectionTen, inView: tenVisible } = useInView({ threshold: 0.8 });
+  const { ref: sectionTen, inView: tenVisible } = useInView({ threshold: 0.7 });
   const { ref: sectionEleven, inView: elevenVisible } = useInView({
-    threshold: 0.8,
+    threshold: 0.7,
   });
   const { ref: sectionTwelve, inView: twelveVisible } = useInView({
-    threshold: 0.8,
+    threshold: 0.7,
   });
   const { ref: sectionThirteen, inView: thirteenVisible } = useInView({
-    threshold: 0.8,
+    threshold: 0.7,
   });
 
   useEffect(() => {
@@ -144,40 +144,42 @@ const Storytelling = () => {
 
   // ON CHANGE CHAPTER
   const onChangeChapter = (chapter) => {
-    const { category, layerID, sourceID, isLayerOn } = chapter;
+    const { category, layerID, sourceID, isLayerOn, icon } = chapter;
     const dataForCategory = wisataByCategory[category];
     console.log(category, dataForCategory);
     if (dataForCategory && isLayerOn) {
       removeChapterLayers(map.current);
 
-      map.current.addSource(sourceID, {
-        type: "geojson",
-        data: {
-          type: "FeatureCollection",
-          features: dataForCategory.map((wisata) => ({
-            type: "Feature",
-            properties: { ...wisata },
-            geometry: {
-              type: "Point",
-              coordinates: [
-                wisata.geometry.coordinates[0],
-                wisata.geometry.coordinates[1],
-              ],
-            },
-          })),
-        },
-      });
+      map.current.loadImage(`icon/layer/${icon}.png`, (error, image) => {
+        if (error) throw error;
+        map.current.addImage(`${icon}`, image);
+        map.current.addSource(sourceID, {
+          type: "geojson",
+          data: {
+            type: "FeatureCollection",
+            features: dataForCategory.map((wisata) => ({
+              type: "Feature",
+              properties: { ...wisata },
+              geometry: {
+                type: "Point",
+                coordinates: [
+                  wisata.geometry.coordinates[0],
+                  wisata.geometry.coordinates[1],
+                ],
+              },
+            })),
+          },
+        });
 
-      map.current.addLayer({
-        id: layerID,
-        source: sourceID,
-        type: "circle",
-        paint: {
-          "circle-radius": 4,
-          "circle-stroke-width": 1,
-          "circle-color": "chocolate",
-          "circle-stroke-color": "white",
-        },
+        map.current.addLayer({
+          id: layerID,
+          source: sourceID,
+          type: "symbol",
+          layout: {
+            "icon-image": icon,
+            visibility: "visible",
+          },
+        });
       });
 
       map.current.setLayoutProperty(layerID, "visibility", "visible");

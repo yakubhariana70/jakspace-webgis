@@ -14,6 +14,7 @@
   position: sticky;
   top: 0;
   background-color: white;
+  z-index: 1;
 }
 
 #story-container #information {
@@ -26,6 +27,12 @@
   margin-bottom: 1rem;
   font-weight: bold;
   font-size: calc(24px + 0.390625vw);
+}
+#story-container sub {
+  text-transform: uppercase;
+  color: lightslategray;
+  font-size: calc(12px + 0.312vw);
+  font-weight: bold;
 }
 
 #story-container p {
@@ -54,31 +61,50 @@
   height: 100vh;
   width: 60vw;
 }
+
+.img-story {
+  margin-bottom: 1rem;
+  max-width: 100%;
+  /* height: 100px; */
+  border-radius: calc(15px + 0.312vw);
+}
+
 /* PHONE */
-@media (max-height: 576px), screen and (orientation: portrait) {
+@media (max-width: 576px), screen and (orientation: portrait) {
   #storytelling-page {
     flex-flow: column-reverse;
   }
 
   #story-container {
-    flex-basis: 50vh;
+    flex-basis: 70vh;
     overflow-y: scroll;
+  }
+  #story-container #information {
+    display: flex;
+    flex-flow: row nowrap;
+    height: 100%;
   }
 
   #story-container .chapter {
-    height: 50%;
+    flex-basis: 100vw;
+    flex-shrink: 0;
     display: flex;
-    flex-flow: column nowrap;
+    flex-flow: column;
     justify-content: flex-start;
-    margin-bottom: 1.5rem;
+    padding: 1rem;
+    padding-inline: 2rem;
+    /* margin-bottom: 1.5rem; */
   }
 
+  #story-container h1 {
+    font-size: calc(20px + 0.390625vw);
+  }
   #story-mapbox {
-    flex-basis: 50vh;
+    flex-basis: 30vh;
     width: 100vw;
   }
   #story-mapbox .map-container {
-    height: 50vh;
+    height: 30vh;
     width: 100vw;
   }
 }

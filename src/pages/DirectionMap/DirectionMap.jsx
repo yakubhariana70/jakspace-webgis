@@ -92,7 +92,7 @@ const DirectionMap = () => {
       // Batas Administrasi JKT
       map.current.addSource("batas-administrasi", {
         type: "vector",
-        url: "mapbox://yakubhariana70.clowla7e91y6q1omu84kz63yi-0ewwd",
+        url: "mapbox://yakubhariana70.clp19z2er2dqx1tqk0hms1p9g-42z2h",
       });
 
       map.current.addLayer({
@@ -109,6 +109,54 @@ const DirectionMap = () => {
           "fill-color": "#009B98",
           "fill-opacity": 0.15,
           "fill-outline-color": "white",
+        },
+      });
+
+      // Jalur KA
+      map.current.addSource("ka-route", {
+        type: "vector",
+        url: "mapbox://yakubhariana70.clp18huim0d9a1np6galo91h0-0w31i",
+      });
+
+      map.current.addLayer({
+        id: "line-ka",
+        type: "line",
+        slot: "middle",
+        source: "ka-route",
+        "source-layer": "JS-jalur-KA",
+        layout: {
+          // Make the layer visible by default.
+          visibility: "visible",
+          "line-join": "round",
+          "line-cap": "round",
+        },
+        paint: {
+          "line-color": "blue",
+          "line-width": 2,
+        },
+      });
+
+      // Jalur LRT
+      map.current.addSource("lrt-route", {
+        type: "vector",
+        url: "mapbox://yakubhariana70.clp18jlyu2ddo1tqkf6v1d0dn-956yo",
+      });
+
+      map.current.addLayer({
+        id: "line-lrt",
+        type: "line",
+        slot: "middle",
+        source: "lrt-route",
+        "source-layer": "JS-jalur-LRT",
+        layout: {
+          // Make the layer visible by default.
+          visibility: "visible",
+          "line-join": "round",
+          "line-cap": "round",
+        },
+        paint: {
+          "line-color": "red",
+          "line-width": 2,
         },
       });
 
@@ -187,55 +235,57 @@ const DirectionMap = () => {
       Object.keys(jenisWisata).forEach((jenis) => {
         const sourceId = `wisata-${jenis}`;
         const layerId = `point-wisata-${jenis}`;
-
-        map.current.addSource(sourceId, {
-          type: "geojson",
-          data: {
-            type: "FeatureCollection",
-            features: jenisWisata[jenis],
-          },
-        });
-
-        let circleColor = "#FF0000";
+        let layerImage = "bus";
 
         if (jenis === "Tempat Olahraga") {
-          circleColor = "black";
+          layerImage = "olahraga";
         } else if (jenis === "Tempat Penyelenggaraan Acara") {
-          circleColor = "crimson";
+          layerImage = "mice-venue";
         } else if (jenis === "Tempat Perbelanjaan") {
-          circleColor = "indigo";
+          layerImage = "perbelanjaan";
         } else if (jenis === "Wisata Alam") {
-          circleColor = "darkblue";
+          layerImage = "wisata-alam";
         } else if (jenis === "Wisata Keluarga") {
-          circleColor = "cyan";
+          layerImage = "keluarga";
         } else if (jenis === "Wisata Kuliner") {
-          circleColor = "gold";
+          layerImage = "kuliner";
         } else if (jenis === "Wisata Olahraga") {
-          circleColor = "yellow";
+          layerImage = "olahraga";
         } else if (jenis === "Wisata Religi") {
-          circleColor = "blue";
+          layerImage = "religi";
         } else if (jenis === "Wisata Ruang Terbuka Hijau") {
-          circleColor = "darkgreen";
+          layerImage = "rth";
         } else if (jenis === "Wisata Sejarah") {
-          circleColor = "deeppink";
+          layerImage = "sejarah";
         } else if (jenis === "Wisata Seni dan Budaya") {
-          circleColor = "deepskyblue";
+          layerImage = "seni-budaya";
         }
 
-        map.current.addLayer({
-          id: layerId,
-          type: "circle",
-          source: sourceId,
-          layout: {
-            visibility: "visible",
-          },
-          paint: {
-            "circle-radius": 4,
-            "circle-stroke-width": 1,
-            "circle-color": circleColor,
-            "circle-stroke-color": "white",
-          },
-        });
+        map.current.loadImage(
+          `icon/layer/${layerImage}.png`,
+          (error, image) => {
+            if (error) throw error;
+            map.current.addImage(`${layerImage}`, image);
+            map.current.addSource(sourceId, {
+              type: "geojson",
+              data: {
+                type: "FeatureCollection",
+                features: jenisWisata[jenis],
+              },
+            });
+
+            map.current.addLayer({
+              id: layerId,
+              type: "symbol",
+              source: sourceId,
+              layout: {
+                "icon-image": layerImage,
+                visibility: "visible",
+              },
+            });
+          }
+        );
+
         // Set up the corresponding toggle button for each layer.
         const link = document.createElement("a");
         link.id = `toggle-${jenis}`; // ID untuk setiap toggle
@@ -274,128 +324,146 @@ const DirectionMap = () => {
       });
 
       // Titik Stasiun Kereta
-      map.current.addSource("stasiun-kereta", {
-        type: "vector",
-        // Use a URL for the value for the `data` property.
-        url: "mapbox://yakubhariana70.clowkmnky04gb1uo1369vvgyj-3hwny",
-      });
+      map.current.loadImage("icon/layer/kereta.png", (error, image) => {
+        if (error) throw error;
+        map.current.addImage("custom-marker", image);
+        // Add a GeoJSON source with 2 points
+        map.current.addSource("stasiun-kereta", {
+          type: "vector",
+          url: "mapbox://yakubhariana70.clowkmnky04gb1uo1369vvgyj-3hwny",
+        });
 
-      map.current.addLayer({
-        id: "point-stasiun-kereta",
-        slot: "top",
-        type: "circle",
-        source: "stasiun-kereta",
-        "source-layer": "JS-stasiun-kereta",
-        layout: {
-          // Make the layer visible by default.
-          visibility: "visible",
-        },
-        paint: {
-          "circle-radius": 4,
-          "circle-stroke-width": 1,
-          "circle-color": "cyan",
-          "circle-stroke-color": "white",
-        },
+        map.current.addLayer({
+          id: "point-stasiun-kereta",
+          slot: "top",
+          type: "symbol",
+          source: "stasiun-kereta",
+          "source-layer": "JS-stasiun-kereta",
+          layout: {
+            "icon-image": "custom-marker",
+            visibility: "visible",
+          },
+        });
       });
 
       // Titik Stasiun MRT
-      map.current.addSource("stasiun-mrt", {
-        type: "vector",
-        // Use a URL for the value for the `data` property.
-        url: "mapbox://yakubhariana70.clowkn7g027pp20ldj94qmd0i-3mnja",
+      map.current.loadImage("icon/layer/mrt.png", (error, image) => {
+        if (error) throw error;
+        map.current.addImage("mrt-marker", image);
+        // Add a GeoJSON source with 2 points
+        map.current.addSource("stasiun-mrt", {
+          type: "vector",
+          // Use a URL for the value for the `data` property.
+          url: "mapbox://yakubhariana70.clowkn7g027pp20ldj94qmd0i-3mnja",
+        });
+
+        map.current.addLayer({
+          id: "point-stasiun-mrt",
+          slot: "top",
+          type: "symbol",
+          source: "stasiun-mrt",
+          "source-layer": "JS-stasiun-mrt",
+          layout: {
+            "icon-image": "mrt-marker",
+            visibility: "visible",
+          },
+        });
       });
 
-      map.current.addLayer({
-        id: "point-stasiun-mrt",
-        slot: "top",
-        type: "circle",
-        source: "stasiun-mrt",
-        "source-layer": "JS-stasiun-mrt",
-        layout: {
-          // Make the layer visible by default.
-          visibility: "visible",
-        },
-        paint: {
-          "circle-radius": 4,
-          "circle-stroke-width": 1,
-          "circle-color": "blue",
-          "circle-stroke-color": "white",
-        },
+      // Titik Stasiun LRT
+      map.current.loadImage("icon/layer/lrt.png", (error, image) => {
+        if (error) throw error;
+        map.current.addImage("lrt-marker", image);
+        // Add a GeoJSON source with 2 points
+        map.current.addSource("stasiun-lrt", {
+          type: "vector",
+          // Use a URL for the value for the `data` property.
+          url: "mapbox://yakubhariana70.clp18n1m123bh1mqfo4rnglzz-5ruy3",
+        });
+
+        map.current.addLayer({
+          id: "point-stasiun-lrt",
+          slot: "top",
+          type: "symbol",
+          source: "stasiun-lrt",
+          "source-layer": "JS-stasiun-LRT",
+          layout: {
+            "icon-image": "lrt-marker",
+            visibility: "visible",
+          },
+        });
       });
 
       // Titik Terminal Bus
-      map.current.addSource("terminal-bus", {
-        type: "vector",
-        // Use a URL for the value for the `data` property.
-        url: "mapbox://yakubhariana70.clowkrjed27qq20ld3ehv8vfv-2kgny",
-      });
+      map.current.loadImage("icon/layer/bus.png", (error, image) => {
+        if (error) throw error;
+        map.current.addImage("terminal-bus-marker", image);
+        // Add a GeoJSON source with 2 points
+        map.current.addSource("terminal-bus", {
+          type: "vector",
+          // Use a URL for the value for the `data` property.
+          url: "mapbox://yakubhariana70.clowkrjed27qq20ld3ehv8vfv-2kgny",
+        });
 
-      map.current.addLayer({
-        id: "point-terminal-bus",
-        slot: "top",
-        type: "circle",
-        source: "terminal-bus",
-        "source-layer": "JS-terminal-bus",
-        layout: {
-          // Make the layer visible by default.
-          visibility: "visible",
-        },
-        paint: {
-          "circle-radius": 4,
-          "circle-stroke-width": 1,
-          "circle-color": "yellow",
-          "circle-stroke-color": "white",
-        },
+        map.current.addLayer({
+          id: "point-terminal-bus",
+          slot: "top",
+          type: "symbol",
+          source: "terminal-bus",
+          "source-layer": "JS-terminal-bus",
+          layout: {
+            "icon-image": "terminal-bus-marker",
+            visibility: "visible",
+          },
+        });
       });
 
       // Titik Halte Transjakarta
-      map.current.addSource("halte-tj", {
-        type: "vector",
-        // Use a URL for the value for the `data` property.
-        url: "mapbox://yakubhariana70.clowkscgb29tt20psl939zcii-3t55t",
-      });
+      map.current.loadImage("icon/layer/halte-tj.png", (error, image) => {
+        if (error) throw error;
+        map.current.addImage("halte-tj-marker", image);
+        // Add a GeoJSON source with 2 points
+        map.current.addSource("halte-tj", {
+          type: "vector",
+          // Use a URL for the value for the `data` property.
+          url: "mapbox://yakubhariana70.clowkscgb29tt20psl939zcii-3t55t",
+        });
 
-      map.current.addLayer({
-        id: "point-halte-tj",
-        slot: "top",
-        type: "circle",
-        source: "halte-tj",
-        "source-layer": "JS-halte-transjakarta",
-        layout: {
-          // Make the layer visible by default.
-          visibility: "visible",
-        },
-        paint: {
-          "circle-radius": 4,
-          "circle-stroke-width": 1,
-          "circle-color": "gray",
-          "circle-stroke-color": "white",
-        },
+        map.current.addLayer({
+          id: "point-halte-tj",
+          slot: "top",
+          type: "symbol",
+          source: "halte-tj",
+          "source-layer": "JS-halte-transjakarta",
+          layout: {
+            "icon-image": "halte-tj-marker",
+            visibility: "visible",
+          },
+        });
       });
 
       // Titik Bandara
-      map.current.addSource("bandara", {
-        type: "vector",
-        // Use a URL for the value for the `data` property.
-        url: "mapbox://yakubhariana70.clowktio804e11mo1qxmg6wim-29qnk",
-      });
+      map.current.loadImage("icon/layer/bandara.png", (error, image) => {
+        if (error) throw error;
+        map.current.addImage("bandara-marker", image);
+        // Add a GeoJSON source with 2 points
+        map.current.addSource("bandara", {
+          type: "vector",
+          // Use a URL for the value for the `data` property.
+          url: "mapbox://yakubhariana70.clowktio804e11mo1qxmg6wim-29qnk",
+        });
 
-      map.current.addLayer({
-        id: "point-bandara",
-        slot: "top",
-        type: "circle",
-        source: "bandara",
-        "source-layer": "JS-bandara",
-        layout: {
-          // Make the layer visible by default.
-          visibility: "visible",
-        },
-        paint: {
-          "circle-radius": 4,
-          "circle-stroke-width": 1,
-          "circle-color": "tomato",
-          "circle-stroke-color": "white",
-        },
+        map.current.addLayer({
+          id: "point-bandara",
+          slot: "top",
+          type: "symbol",
+          source: "bandara",
+          "source-layer": "JS-bandara",
+          layout: {
+            "icon-image": "bandara-marker",
+            visibility: "visible",
+          },
+        });
       });
     });
 
@@ -406,10 +474,13 @@ const DirectionMap = () => {
         !map.current.getLayer("point-wisata") ||
         !map.current.getLayer("point-stasiun-kereta") ||
         !map.current.getLayer("point-stasiun-mrt") ||
+        !map.current.getLayer("point-stasiun-lrt") ||
         !map.current.getLayer("point-terminal-bus") ||
         !map.current.getLayer("point-halte-tj") ||
         !map.current.getLayer("point-bandara") ||
+        !map.current.getLayer("line-ka") ||
         !map.current.getLayer("line-mrt") ||
+        !map.current.getLayer("line-lrt") ||
         !map.current.getLayer("polygon-adm-jkt")
       ) {
         return;
@@ -420,10 +491,13 @@ const DirectionMap = () => {
         // "point-wisata",
         "point-stasiun-kereta",
         "point-stasiun-mrt",
+        "point-stasiun-lrt",
         "point-terminal-bus",
         "point-halte-tj",
         "point-bandara",
+        "line-ka",
         "line-mrt",
+        "line-lrt",
         "polygon-adm-jkt",
       ];
 
@@ -431,9 +505,12 @@ const DirectionMap = () => {
         // "point-wisata": "Lokasi Wisata",
         "point-stasiun-kereta": "Stasiun Kereta ",
         "point-stasiun-mrt": "Stasiun MRT",
+        "point-stasiun-lrt": "Stasiun LRT",
         "point-terminal-bus": "Terminal Bus",
         "point-halte-tj": "Halte Transjakarta",
         "point-bandara": "Bandara",
+        "line-ka": "Jalur Kereta Api",
+        "line-lrt": "Jalur LRT",
         "line-mrt": "Jalur MRT",
         "polygon-adm-jkt": "Batas Administrasi",
       };
@@ -507,6 +584,7 @@ const DirectionMap = () => {
     map.current.on("click", "point-wisata", clickListener);
     map.current.on("click", "point-stasiun-kereta", clickListener);
     map.current.on("click", "point-stasiun-mrt", clickListener);
+    map.current.on("click", "point-stasiun-lrt", clickListener);
     map.current.on("click", "point-terminal-bus", clickListener);
     map.current.on("click", "point-halte-tj", clickListener);
 
@@ -522,6 +600,7 @@ const DirectionMap = () => {
     return () => {
       map.current.off("click", "point-wisata", clickListener);
       map.current.off("click", "point-stasiun-kereta", clickListener);
+      map.current.off("click", "point-stasiun-lrt", clickListener);
       map.current.off("click", "point-stasiun-mrt", clickListener);
       map.current.off("click", "point-terminal-bus", clickListener);
       map.current.off("click", "point-halte-tj", clickListener);
