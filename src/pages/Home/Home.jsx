@@ -1,6 +1,6 @@
 import React from "react";
 import NavigationBar from "../../components/NavigationBar";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 // CSS
 import "./Home.css";
@@ -16,15 +16,15 @@ const Home = () => {
       <div className="home-picture"></div>
       <div className="home-content">
         <div className="hero-section">
-          <h1>Jelajahi Pesona Budaya dan Wisata Jakarta Bersama Kami</h1>
+          <h1>Selamat Datang di Paryatana Bhumi Jakarta!</h1>
+          <sub>Jelajahi Keindahan Bertamasya di Kota Jakarta.</sub>
           <p>
-            Terbenam dalam pesona Jakarta, kota yang tak hanya menawarkan
-            kehidupan perkotaan yang berdenyut, tetapi juga mempersembahkan
-            warisan budaya yang tak ternilai. Mulailah petualangan Anda dan
-            temukan cerita di setiap sudutnya
+            Temukan warisan sejarah dan keindahan yang menggugah jiwa kota ini.
+            Dapatkan pengalaman unik dengan peta interaktif hasil karya Dipo
+            Journey. Saksikan Jakarta dari perspektif tiga dimensi &#40;3D&#41;.
           </p>
-          <Link to="/direction-map" className="btn btn-success">
-            Jelajahi Pariwisata Jakarta
+          <Link to="/storytelling" className="btn-hero">
+            Mulai Petualanganmu!
           </Link>
         </div>
       </div>

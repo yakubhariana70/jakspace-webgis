@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import { useInView } from "react-intersection-observer";
+import { Link } from "react-router-dom";
 
 import NavigationBar from "../../components/NavigationBar";
 import TourismStory from "./TourismStory";
@@ -354,6 +355,9 @@ const Storytelling = () => {
           </section>
           <section className="chapter" ref={sectionThirteen}>
             <TourismStory story={config.chapters[12]} />
+            <Link to="/direction-map" className="btn-hero">
+              Tourism Map
+            </Link>
           </section>
         </main>
       </section>

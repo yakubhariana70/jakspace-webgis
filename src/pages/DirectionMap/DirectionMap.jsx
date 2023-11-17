@@ -106,9 +106,9 @@ const DirectionMap = () => {
           visibility: "visible",
         },
         paint: {
-          "fill-color": "#009B98",
-          "fill-opacity": 0.15,
-          "fill-outline-color": "white",
+          "fill-color": "rgba(204,52,51,0.15)",
+          "fill-opacity": 1,
+          "fill-outline-color": "black",
         },
       });
 
@@ -131,7 +131,7 @@ const DirectionMap = () => {
           "line-cap": "round",
         },
         paint: {
-          "line-color": "blue",
+          "line-color": "#cc3433",
           "line-width": 2,
         },
       });
@@ -155,7 +155,7 @@ const DirectionMap = () => {
           "line-cap": "round",
         },
         paint: {
-          "line-color": "red",
+          "line-color": "#1A1D40",
           "line-width": 2,
         },
       });
@@ -179,7 +179,7 @@ const DirectionMap = () => {
           "line-cap": "round",
         },
         paint: {
-          "line-color": "#877b59",
+          "line-color": "#C2FE46",
           "line-width": 2,
         },
       });

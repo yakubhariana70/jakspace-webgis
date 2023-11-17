@@ -22,47 +22,69 @@ header {
 }
 
 .home-picture {
-    /* height: 40vh; */
-    flex: 1 1 50vh;
-    border: 1px solid gray;
-    background-image: url("../../assets/jakarta-home.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+  /* height: 40vh; */
+  flex: 1 1 50vh;
+  border: 1px solid gray;
+  background-image: url("../../assets/jakarta-home.jpg");
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
 }
 
 .home-content {
   flex: 1 1 50vh;
   position: relative;
   display: flex;
-  padding: 4rem 4rem ;
+  padding: 4rem 4rem;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
-
-.hero-section{
+.hero-section {
   width: 40vw;
 }
 
-.hero-section h1{
+.hero-section h1 {
+  font-size: calc(26px + 0.312vw);
   font-weight: bold;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+.hero-section sub {
+  font-size: calc(14px + 0.312vw);
+  text-transform: uppercase;
+  font-weight: bold;
+  color: lightslategray;
 }
 
-.hero-section p{
-  font-size: large;
+.hero-section p {
+  margin-top: 2rem;
+  font-size: calc(14px + 0.312vw);
+  text-align: justify;
+  margin-bottom: 3rem;
 }
 
-.hero-section .btn{
-  margin-top: 1.5rem;
+.hero-section .btn-hero {
+  background-color: #1A1D40;
+  text-decoration: none;
+  font-weight: bold;
+  color: white;
+  padding: 1rem;
+  padding-inline: 2rem;
+  text-align: center;
+  border-radius: 3rem;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
 /* PHONE */
 @media (max-height: 576px), screen and (orientation: portrait) {
-  .home-content{
+  .home-content {
     padding: 3rem 2rem;
   }
-  .hero-section{
+  .hero-section {
     width: 100%;
+  }
+  .home-picture{
+    background-position: center;
   }
 }
