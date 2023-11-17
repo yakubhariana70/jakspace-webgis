@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
+import NavigationBar from "../../components/NavigationBar";
 
 // CSS
 import "./DirectionMap.css";
@@ -654,6 +655,9 @@ const DirectionMap = () => {
         {/* <div className="coordinate-bar">
           Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
         </div> */}
+      </div>
+      <div className="tourism-navbar">
+        <NavigationBar />
       </div>
       <div id="toggle-layer">
         <div

@@ -47,7 +47,7 @@
   justify-content: flex-start;
   padding: 4rem;
   /* margin-bottom: 1.5rem; */
-  border: 1px solid grey;
+  border-top: 1px solid grey;
 }
 
 #story-mapbox {
@@ -65,7 +65,7 @@
 .img-story {
   margin-bottom: 1rem;
   max-width: 100%;
-  /* height: 100px; */
+  max-height: 500px;
   border-radius: calc(15px + 0.312vw);
 }
 .chapter .btn-hero {
@@ -73,6 +73,7 @@
   text-decoration: none;
   font-weight: bold;
   color: white;
+  margin-top: 1rem;
   padding: 1rem;
   padding-inline: 2rem;
   text-align: center;
