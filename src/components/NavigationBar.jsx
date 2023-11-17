@@ -30,7 +30,7 @@ const NavigationBar = () => {
                 className="ms-auto fw-semibold"
                 style={{ fontSize: "calc(12px + 0.390625vw)" }}
               >
-                <Nav.Link href="/">Home</Nav.Link>
+                <Nav.Link href="/jakspace-webgis">Home</Nav.Link>
                 <Nav.Link href="/jakspace-webgis/#/direction-map">Map</Nav.Link>
                 <Nav.Link href="/jakspace-webgis/#/storytelling">
                   Storytelling

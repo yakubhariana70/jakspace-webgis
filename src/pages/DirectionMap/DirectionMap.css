@@ -62,8 +62,8 @@
 }
 
 .active {
-  background-color: limegreen;
-  border-color: limegreen;
+  background-color: #1a1d40;
+  border-color: #1a1d40;
 }
 
 /* WISATA  */
@@ -103,12 +103,12 @@
 }
 
 #menu-wisata a.active {
-  background-color: limegreen;
+  background-color: #cc3433;
   color: #ffffff;
 }
 
 #menu-wisata a.active:hover {
-  background: limegreen;
+  background: #cc3433;
 }
 
 /* TRANSPORTASI  */
@@ -148,15 +148,27 @@
 }
 
 #menu-transportasi a.active {
-  background-color: #3887be;
+  background-color: #1a1d40;
   color: #ffffff;
 }
 
 #menu-transportasi a.active:hover {
-  background: #3074a4;
+  background: #1a1d40;
 }
 
 .icon {
   max-height: 30px;
   max-width: 30px;
+}
+
+.mapbox-form-label {
+  background: #1a1d40;
+}
+
+.mapbox-directions-origin .mapbox-form-label {
+  background-color: #cc3433;
+}
+
+.mapbox-marker-drag-icon-step{
+  background-color: #cc3433;
 }
