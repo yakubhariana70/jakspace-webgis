@@ -28,14 +28,16 @@ const NavigationBar = () => {
             <Offcanvas.Body>
               <Nav
                 className="ms-auto fw-semibold"
-                style={{ fontSize: "calc(12px + 0.390625vw)" }}
+                style={{ fontSize: "calc(10px + 0.390625vw)" }}
               >
                 <Nav.Link href="/jakspace-webgis">Home</Nav.Link>
-                <Nav.Link href="/jakspace-webgis/#/direction-map">Map</Nav.Link>
                 <Nav.Link href="/jakspace-webgis/#/storytelling">
-                  Storytelling
+                  StoryMap
                 </Nav.Link>
-                <Nav.Link href="/jakspace-webgis/#/about">About</Nav.Link>
+                <Nav.Link href="/jakspace-webgis/#/direction-map">
+                  Tourism Map
+                </Nav.Link>
+                {/* <Nav.Link href="/jakspace-webgis/#/about">About</Nav.Link> */}
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>
