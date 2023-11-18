@@ -143,9 +143,23 @@ const Storytelling = () => {
     setViewport(location);
   };
 
+  // ROTATE FUNCTION
+  const onRotateAnimation = () => {
+    map.current.once("moveend", () => {
+      const rotateNumber = map.current.getBearing();
+      map.current.rotateTo(rotateNumber + 180, {
+        duration: 60000,
+        easing: function (t) {
+          return t;
+        },
+      });
+    });
+  }
+
+
   // ON CHANGE CHAPTER
   const onChangeChapter = (chapter) => {
-    const { category, layerID, sourceID, isLayerOn, icon } = chapter;
+    const { category, layerID, sourceID, isLayerOn, rotateAnimation, icon } = chapter;
     const dataForCategory = wisataByCategory[category];
     console.log(category, dataForCategory);
     if (dataForCategory && isLayerOn) {
@@ -192,6 +206,9 @@ const Storytelling = () => {
       removeChapterLayers(map.current, chapter);
       if (isLayerOn) {
         addChapterLayers(map.current, chapter);
+      }
+      if (rotateAnimation) {
+        onRotateAnimation()
       }
     } else {
       removeChapterLayers(map.current);

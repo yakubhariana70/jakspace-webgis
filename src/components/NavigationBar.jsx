@@ -7,7 +7,7 @@ const NavigationBar = () => {
     <div>
       <Navbar sticky="top" expand="lg">
         <Container fluid className="px-5">
-          <Navbar.Brand href="/">
+          <Navbar.Brand href="/jakspace-webgis/">
             <img alt="Logo" src={logo} width="auto" height="50" />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -30,7 +30,7 @@ const NavigationBar = () => {
                 className="ms-auto fw-semibold"
                 style={{ fontSize: "calc(10px + 0.390625vw)" }}
               >
-                <Nav.Link href="/jakspace-webgis">Home</Nav.Link>
+                <Nav.Link href="/jakspace-webgis/">Home</Nav.Link>
                 <Nav.Link href="/jakspace-webgis/#/storytelling">
                   StoryMap
                 </Nav.Link>
