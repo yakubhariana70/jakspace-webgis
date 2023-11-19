@@ -316,7 +316,7 @@ var config = {
       description:
         "Bosan dengan hiruk-pikuk dan ramainya ibukota, ketenangan dapat kamu temukan di kepulauan seribu yang menyajikan keindahan dan pesona alam ",
       location: {
-        center: [106.57960, -5.80614],
+        center: [106.5796, -5.80614],
         zoom: 10,
         pitch: 15,
         bearing: 60.2,
@@ -351,6 +351,192 @@ var config = {
       rotateAnimation: true,
       callback: "",
       isLayerOn: false,
+    },
+    {
+      id: "transportation-desc",
+      alignment: "left",
+      title: "Transportasi Umum Sesuai Kebutuhan!",
+      subtitle: "Get to Know More!",
+      image: "image-story/LRT.webp",
+      hidden: false,
+      icon: "kereta",
+      description:
+        "Untuk anda yang tidak membawa kendaraan pribadi, tidak perlu bingung untuk mencapai tempat wisata. Jakarta memiliki banyak moda transportasi umum yang bukan hanya membantu mengantarkan anda ke lokasi tujuan perjalanan, transportasi umum juga bukti bahwa Jakarta mengusung konsep smart city dan ramah lingkungan. Banyak moda transportasi umum yang dapat dilihat pada peta di samping maupun peta utama.",
+      location: {
+        center: [106.877, -6.175],
+        zoom: 10,
+        pitch: 30,
+        bearing: -30.2,
+        duration: 3000,
+        essential: true,
+      },
+      mapAnimation: "flyTo",
+      rotateAnimation: true,
+      callback: "",
+      isLayerOn: true,
+      sourceID: "stasiun-kereta",
+      layerID: "point-stasiun-kereta",
+      layerUrl: "mapbox://yakubhariana70.clowkmnky04gb1uo1369vvgyj-3hwny",
+      layerLoad: {
+        type: "symbol",
+        slot: "top",
+        "source-layer": "JS-stasiun-kereta",
+        layout: {
+          "icon-image": "kereta",
+          visibility: "visible",
+        },
+      },
+    },
+    {
+      id: "transportation-item",
+      icon: "mrt",
+      isLayerOn: true,
+      sourceID: "stasiun-mrt",
+      layerID: "point-stasiun-mrt",
+      layerUrl: "mapbox://yakubhariana70.clowkn7g027pp20ldj94qmd0i-3mnja",
+      layerLoad: {
+        type: "symbol",
+        slot: "top",
+        "source-layer": "JS-stasiun-mrt",
+        layout: {
+          "icon-image": "mrt",
+          visibility: "visible",
+        },
+      },
+    },
+    {
+      id: "transportation-item",
+      icon: "lrt",
+      isLayerOn: true,
+      sourceID: "stasiun-lrt",
+      layerID: "point-stasiun-lrt",
+      layerUrl: "mapbox://yakubhariana70.clp18n1m123bh1mqfo4rnglzz-5ruy3",
+      layerLoad: {
+        type: "symbol",
+        slot: "top",
+        "source-layer": "JS-stasiun-LRT",
+        layout: {
+          "icon-image": "lrt",
+          visibility: "visible",
+        },
+      },
+    },
+    {
+      id: "transportation-item",
+      icon: "bus",
+      isLayerOn: true,
+      sourceID: "terminal-bus",
+      layerID: "point-terminal-bus",
+      layerUrl: "mapbox://yakubhariana70.clowkrjed27qq20ld3ehv8vfv-2kgny",
+      layerLoad: {
+        type: "symbol",
+        slot: "top",
+        "source-layer": "JS-terminal-bus",
+        layout: {
+          "icon-image": "bus",
+          visibility: "visible",
+        },
+      },
+    },
+    {
+      id: "transportation-item",
+      icon: "halte-tj",
+      isLayerOn: true,
+      sourceID: "halte-tj",
+      layerID: "point-halte-tj",
+      layerUrl: "mapbox://yakubhariana70.clowkscgb29tt20psl939zcii-3t55t",
+      layerLoad: {
+        type: "symbol",
+        slot: "top",
+        "source-layer": "JS-halte-transjakarta",
+        layout: {
+          "icon-image": "halte-tj",
+          visibility: "visible",
+        },
+      },
+    },
+    {
+      id: "transportation-item",
+      icon: "bandara",
+      isLayerOn: true,
+      sourceID: "bandara",
+      layerID: "point-bandara",
+      layerUrl: "mapbox://yakubhariana70.clowktio804e11mo1qxmg6wim-29qnk",
+      layerLoad: {
+        type: "symbol",
+        slot: "top",
+        "source-layer": "JS-bandara",
+        layout: {
+          "icon-image": "bandara",
+          visibility: "visible",
+        },
+      },
+    },
+    {
+      id: "transportation-item",
+      sourceID: "ka-route",
+      layerID: "line-ka",
+      layerUrl: "mapbox://yakubhariana70.clp18huim0d9a1np6galo91h0-0w31i",
+      isLayerOn: true,
+      layerLoad: {
+        type: "line",
+        slot: "middle",
+        "source-layer": "JS-jalur-KA",
+        layout: {
+          // Make the layer visible by default.
+          visibility: "visible",
+          "line-join": "round",
+          "line-cap": "round",
+        },
+        paint: {
+          "line-color": "#cc3433",
+          "line-width": 2,
+        },
+      },
+    },
+    {
+      id: "transportation-item",
+      sourceID: "lrt-route",
+      layerID: "line-lrt",
+      layerUrl: "mapbox://yakubhariana70.clp18jlyu2ddo1tqkf6v1d0dn-956yo",
+      isLayerOn: true,
+      layerLoad: {
+        type: "line",
+        slot: "middle",
+        "source-layer": "JS-jalur-LRT",
+        layout: {
+          // Make the layer visible by default.
+          visibility: "visible",
+          "line-join": "round",
+          "line-cap": "round",
+        },
+        paint: {
+          "line-color": "#1A1D40",
+          "line-width": 2,
+        },
+      },
+    },
+    {
+      id: "transportation-item",
+      sourceID: "mrt-route",
+      layerID: "line-mrt",
+      layerUrl: "mapbox://yakubhariana70.clowknwwh1xm11no4makbjv3u-0rvb4",
+      isLayerOn: true,
+      layerLoad: {
+        type: "line",
+        slot: "middle",
+        "source-layer": "JS-jalur-MRT",
+        layout: {
+          // Make the layer visible by default.
+          visibility: "visible",
+          "line-join": "round",
+          "line-cap": "round",
+        },
+        paint: {
+          "line-color": "#C2FE46",
+          "line-width": 2,
+        },
+      },
     },
   ],
 };

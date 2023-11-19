@@ -56,6 +56,9 @@ const Storytelling = () => {
   const { ref: sectionThirteen, inView: thirteenVisible } = useInView({
     threshold: 0.7,
   });
+  const { ref: sectionFourteen, inView: fourteenVisible } = useInView({
+    threshold: 0.7,
+  });
 
   useEffect(() => {
     if (map.current) return;
@@ -114,16 +117,33 @@ const Storytelling = () => {
 
   const addChapterLayers = (map, chapter) => {
     // Tambahkan sumber data baru
-    map.addSource(chapter.sourceID, {
-      type: "vector",
-      url: chapter.layerUrl,
-    });
+    if (chapter.icon) {
+      map.loadImage(`icon/layer/${chapter.icon}.png`, (error, image) => {
+        if (error) throw error;
+        map.addImage(`${chapter.icon}`, image);
+        map.addSource(chapter.sourceID, {
+          type: "vector",
+          url: chapter.layerUrl,
+        });
 
-    map.addLayer({
-      id: chapter.layerID,
-      source: chapter.sourceID,
-      ...chapter.layerLoad,
-    });
+        map.addLayer({
+          id: chapter.layerID,
+          source: chapter.sourceID,
+          ...chapter.layerLoad,
+        });
+      });
+    } else {
+      map.addSource(chapter.sourceID, {
+        type: "vector",
+        url: chapter.layerUrl,
+      });
+
+      map.addLayer({
+        id: chapter.layerID,
+        source: chapter.sourceID,
+        ...chapter.layerLoad,
+      });
+    }
 
     // Atur opacity menjadi 0 agar layer tersembunyi
     map.setLayoutProperty(chapter.layerID, "visibility", "none");
@@ -154,12 +174,12 @@ const Storytelling = () => {
         },
       });
     });
-  }
-
+  };
 
   // ON CHANGE CHAPTER
   const onChangeChapter = (chapter) => {
-    const { category, layerID, sourceID, isLayerOn, rotateAnimation, icon } = chapter;
+    const { category, layerID, sourceID, isLayerOn, rotateAnimation, icon } =
+      chapter;
     const dataForCategory = wisataByCategory[category];
     console.log(category, dataForCategory);
     if (dataForCategory && isLayerOn) {
@@ -208,7 +228,7 @@ const Storytelling = () => {
         addChapterLayers(map.current, chapter);
       }
       if (rotateAnimation) {
-        onRotateAnimation()
+        onRotateAnimation();
       }
     } else {
       removeChapterLayers(map.current);
@@ -271,8 +291,21 @@ const Storytelling = () => {
       } else if (thirteenVisible) {
         onChangeChapter(config.chapters[12]);
         console.log("Fly to Loc 13");
+      } else if (fourteenVisible) {
+        onChangeChapter(config.chapters[13]);
+        // addChapterLayers(map.current, config.chapters[14])
+        // addChapterLayers(map.current, config.chapters[15])
+        // addChapterLayers(map.current, config.chapters[16])
+        // addChapterLayers(map.current, config.chapters[17])
+        // addChapterLayers(map.current, config.chapters[18])
+        // addChapterLayers(map.current, config.chapters[19])
+        // addChapterLayers(map.current, config.chapters[20])
+        // addChapterLayers(map.current, config.chapters[21])
+        console.log("Fly to Loc 14");
+      } else {
+        removeChapterLayers(map.current)
       }
-    }
+    } 
   }, [
     oneVisible,
     twoVisible,
@@ -287,6 +320,7 @@ const Storytelling = () => {
     elevenVisible,
     twelveVisible,
     thirteenVisible,
+    fourteenVisible
   ]);
 
   // MAP COMPONENT (FUNCTION ATAU CONTROL)
@@ -375,6 +409,9 @@ const Storytelling = () => {
             <Link to="/direction-map" className="btn-hero">
               Tourism Map
             </Link>
+          </section>
+          <section className="chapter" ref={sectionFourteen}>
+            <TourismStory story={config.chapters[13]} />
           </section>
         </main>
       </section>
