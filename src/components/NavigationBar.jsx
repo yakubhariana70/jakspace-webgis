@@ -34,7 +34,7 @@ const NavigationBar = () => {
                 <Nav.Link href="/jakspace-webgis/#/storytelling">
                   StoryMap
                 </Nav.Link>
-                <Nav.Link href="/jakspace-webgis/#/direction-map">
+                <Nav.Link href="/jakspace-webgis/#/tourism-map">
                   Tourism Map
                 </Nav.Link>
                 {/* <Nav.Link href="/jakspace-webgis/#/about">About</Nav.Link> */}

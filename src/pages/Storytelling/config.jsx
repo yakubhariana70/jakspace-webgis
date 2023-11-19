@@ -21,7 +21,7 @@ var config = {
       image: "image-story/story-1.jpg",
       hidden: false,
       description:
-        "Bingung memilih destinasi wisata di Kota Jakarta? Banyaknya rekomendasi vlogger dan selebgram yang buat kamu bimbang? Mari tentukan tempat healing-mu disini! WebGIS Partayana Bhumi Jakarta mengemas rekomendasi wisata di Kota Jakarta dari sisi geospasial secara interaktif melalui 3D Mapping. Ratusan titik destinasi dan ulasan menarik dari berbagai jenis wisata yang dilengkapi visualisasi 3D buat kamu lebih mengerti dimana tempat yang cocok untuk menyegarkan pikiran. Fitur maps yang tersedia juga membantumu mengatur perjalanan. Penasaran? Yuk Swipe ke atas kalo kamu pake desktop atau swipe ke kiri kalo kamu pake smartphone!",
+        "Bingung memilih destinasi wisata di Kota Jakarta? Banyaknya rekomendasi vlogger dan selebgram yang buat kamu bimbang? Mari tentukan tempat healing-mu disini! WebGIS Partayana Bhumi Jakarta mengemas rekomendasi wisata di Kota Jakarta dari sisi geospasial secara interaktif melalui 3D Mapping. Ratusan titik destinasi dan ulasan menarik dari berbagai jenis wisata yang dilengkapi visualisasi 3D buat kamu lebih mengerti dimana tempat yang cocok untuk menyegarkan pikiran. Fitur maps yang tersedia juga membantumu mengatur perjalanan. Penasaran? Yuk Swipe ke atas!",
       location: {
         center: [106.827, -6.175],
         zoom: 9,
@@ -339,7 +339,7 @@ var config = {
       hidden: false,
       icon: "kereta",
       description:
-        "Untuk anda yang tidak membawa kendaraan pribadi, tidak perlu bingung untuk mencapai tempat wisata. Jakarta memiliki banyak moda transportasi umum yang bukan hanya membantu mengantarkan anda ke lokasi tujuan perjalanan, transportasi umum juga bukti bahwa Jakarta mengusung konsep smart city dan ramah lingkungan. Transportasi umum yang tersedia mulai dari bus Transjakarta, kereta api, hingga MRT dan LRT. Jaringan transportasi di DKI Jakarta bisa kamu lihat dalam peta disamping loh!",
+        "Untuk anda yang tidak membawa kendaraan pribadi, tidak perlu bingung untuk mencapai tempat wisata. Jakarta memiliki banyak moda transportasi umum yang bukan hanya membantu mengantarkan anda ke lokasi tujuan perjalanan, transportasi umum juga bukti bahwa Jakarta mengusung konsep smart city dan ramah lingkungan. Transportasi umum yang tersedia mulai dari bus Transjakarta, kereta api, hingga MRT dan LRT. Jaringan transportasi di DKI Jakarta bisa kamu lihat dalam tampilan peta loh!",
       location: {
         center: [106.877, -6.175],
         zoom: 10,

@@ -3,7 +3,7 @@ import mapboxgl from "mapbox-gl";
 import NavigationBar from "../../components/NavigationBar";
 
 // CSS
-import "./DirectionMap.css";
+import "./TourismMap.css";
 
 import wisataData from "../../data/wisata.json";
 
@@ -630,7 +630,7 @@ const DirectionMap = () => {
   };
 
   return (
-    <div className="direction-map">
+    <div id="tourism-map">
       <div id="sidebar">
         <div className="feature-bar">
           <button

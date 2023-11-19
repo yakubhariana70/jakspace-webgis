@@ -11,6 +11,7 @@
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 #story-container nav {
+  height: 9vh;
   position: sticky;
   top: 0;
   background-color: white;
@@ -71,7 +72,10 @@
   object-position: top;
 }
 .chapter .btn-hero {
-  background-color: #1A1D40;
+  display: block;
+  width: 200px;
+  height: 50px;
+  background-color: #1a1d40;
   text-decoration: none;
   font-weight: bold;
   color: white;
@@ -84,6 +88,9 @@
     rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
+.chapter .btn-hero:hover {
+  background-color: #cc3433;
+}
 
 ::-webkit-scrollbar {
   width: 10px;
@@ -116,8 +123,9 @@
   }
   #story-container #information {
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: column nowrap;
     height: 100%;
+    overflow-y:visible;
   }
 
   #story-container .chapter {
@@ -128,7 +136,7 @@
     justify-content: flex-start;
     padding: 1rem;
     padding-inline: 2rem;
-    /* margin-bottom: 1.5rem; */
+    height: max-content;
   }
 
   #story-container h1 {
@@ -142,7 +150,7 @@
     height: 30vh;
     width: 100vw;
   }
-  .img-story{
+  .img-story {
     height: 200px;
   }
 }
