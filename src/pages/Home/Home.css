@@ -4,7 +4,7 @@
 }
 
 header {
-  position: fixed;
+  position: absolute;
   width: 100%;
   flex: 2 2 10vh;
   margin-top: 1.5rem;
@@ -79,6 +79,10 @@ div.home-nav {
 
 /* PHONE */
 @media (max-height: 576px), screen and (orientation: portrait) {
+  header{
+    margin-top: 15rem;
+  }
+
   .home-content {
     padding: 3rem 2rem;
   }

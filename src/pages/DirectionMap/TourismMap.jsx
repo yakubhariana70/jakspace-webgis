@@ -20,10 +20,6 @@ const DirectionMap = () => {
   const [isDirectionActive, setIsDirectionActive] = useState(true);
   const [toggleLayer, setToggleLayer] = useState(null);
 
-  useEffect(() => {
-    console.log(wisataData);
-  }, []);
-
   // LOAD MAP AND CONTROLS
   useEffect(() => {
     if (map.current) return;

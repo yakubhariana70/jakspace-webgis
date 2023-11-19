@@ -88,7 +88,6 @@ const Storytelling = () => {
 
       return acc;
     }, {});
-    console.log(categorizedData["Wisata Olahraga"]);
     setWisataByCategory(categorizedData);
   }, [basemap, wisataData, wisataByCategory]);
 
@@ -181,7 +180,6 @@ const Storytelling = () => {
     const { category, layerID, sourceID, isLayerOn, rotateAnimation, icon } =
       chapter;
     const dataForCategory = wisataByCategory[category];
-    console.log(category, dataForCategory);
     if (dataForCategory && isLayerOn) {
       removeChapterLayers(map.current);
 
@@ -237,19 +235,6 @@ const Storytelling = () => {
 
   // TRIGGER FLYFUNCTION
   useEffect(() => {
-    console.log(
-      "One:",
-      oneVisible,
-      "Two:",
-      twoVisible,
-      "Three:",
-      threeVisible,
-      "Four:",
-      fourVisible,
-      "Seven:",
-      sevenVisible
-    );
-
     if (map.current && map.current.isStyleLoaded()) {
       // Pastikan peta sudah dimuat sebelum melakukan tindakan apapun
       if (oneVisible) {
@@ -358,7 +343,6 @@ const Storytelling = () => {
       if (e.features.length > 0) {
         const coordinates = e.features[0].geometry.coordinates.slice();
         const description = e.features[0].properties.NAMOBJ;
-        console.log("ini deskripsi:", description);
 
         while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
           coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
