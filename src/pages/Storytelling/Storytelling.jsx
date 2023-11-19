@@ -286,6 +286,15 @@ const Storytelling = () => {
         onChangeChapter(config.chapters[10]);
         console.log("Fly to Loc 11");
       } else if (twelveVisible) {
+        for (let i = 12; i <= 20; i++) {
+          const chapter = config.chapters[i];
+          if (map.current.getLayer(chapter.layerID)) {
+            map.current.removeLayer(chapter.layerID);
+          }
+          if (map.current.getSource(chapter.sourceID)) {
+            map.current.removeSource(chapter.sourceID);
+          }
+        }
         onChangeChapter(config.chapters[11]);
         console.log("Fly to Loc 12");
       } else if (thirteenVisible) {
@@ -323,8 +332,6 @@ const Storytelling = () => {
             map.current.removeSource(chapter.sourceID);
           }
         }
-      } else {
-        removeChapterLayers(map.current);
       }
     }
   }, [
