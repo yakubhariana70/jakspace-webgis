@@ -331,28 +331,6 @@ var config = {
       layerID: "titik-wisata",
     },
     {
-      id: "map-features",
-      alignment: "left",
-      title: "Explore Jakarta Tourism through Spatial Lens",
-      subtitle: "Get to Know More!",
-      image: "image-story/story-3.jpg",
-      hidden: false,
-      description:
-        "Tak perlu resah dengan banyaknya lokasi wisata yang  tersebar di setiap sudut Kota Jakarta,fitur maps dapat digunakan untuk memandu perjalananmu dari satu titik ke titik destinasi lainnya. Fitur maps menyajikan informasi titik dari setiap lokasi wisata. Selain itu, di tengah padatnya lalulintas Kota Jakarta, fitur maps juga menyediakan petunjuk rute  yang dapat dapat digunakan untuk menempuh perjalanan dari lokasi kamu berada  ke lokasi wisata . Petunjuk rute ini tersedia untuk setiap pilihan moda transportasi pribadi. Informasi titik penjemputan dan rute perjalanan untuk setiap transportasi umum juga tersedia.",
-      location: {
-        center: [106.827, -6.175],
-        zoom: 18,
-        pitch: 50,
-        bearing: -15.2,
-        duration: 3000,
-        essential: true,
-      },
-      mapAnimation: "flyTo",
-      rotateAnimation: true,
-      callback: "",
-      isLayerOn: false,
-    },
-    {
       id: "transportation-desc",
       alignment: "left",
       title: "Transportasi Umum Sesuai Kebutuhan!",
@@ -537,6 +515,29 @@ var config = {
           "line-width": 2,
         },
       },
+    },
+    {
+      id: "map-features",
+      alignment: "left",
+      title: "Explore Jakarta Tourism through Spatial Lens",
+      subtitle: "Get to Know More!",
+      image: "image-story/story-3.jpg",
+      hidden: false,
+      description:
+        "Tak perlu resah dengan banyaknya lokasi wisata yang  tersebar di setiap sudut Kota Jakarta, Tourism Map menyajikan informasi titik dari setiap kategori lokasi wisata. Selain itu, di tengah padatnya lalulintas Kota Jakarta, Tourism Map dilengkapi dengan fitur Directions yang dapat digunakan untuk memandu perjalanan dari lokasi kamu berada ke lokasi wisata atau titik transit transportasi umum. Fitur Directions tersedia untuk setiap pilihan moda transportasi pribadi. Tunggu apa lagi segera kunjungi Tourism Map dan nikmati perjalanan wisata terbaikmu!",
+      location: {
+        center: [106.827, -6.175],
+        zoom: 17,
+        pitch: 50,
+        bearing: -15.2,
+        duration: 3000,
+        essential: true,
+      },
+      mapAnimation: "flyTo",
+      rotateAnimation: true,
+      callback: "",
+      isLayerOn: false,
+      button: true
     },
   ],
 };

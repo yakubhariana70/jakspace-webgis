@@ -291,21 +291,42 @@ const Storytelling = () => {
       } else if (thirteenVisible) {
         onChangeChapter(config.chapters[12]);
         console.log("Fly to Loc 13");
+
+        for (let i = 12; i <= 20; i++) {
+          const chapter = config.chapters[i];
+          if (map.current.getLayer(chapter.layerID)) {
+            map.current.removeLayer(chapter.layerID);
+          }
+          if (map.current.getSource(chapter.sourceID)) {
+            map.current.removeSource(chapter.sourceID);
+          }
+        }
+        // Menambahkan layer yang baru
+        addChapterLayers(map.current, config.chapters[13]);
+        addChapterLayers(map.current, config.chapters[14]);
+        addChapterLayers(map.current, config.chapters[15]);
+        addChapterLayers(map.current, config.chapters[16]);
+        addChapterLayers(map.current, config.chapters[17]);
+        addChapterLayers(map.current, config.chapters[18]);
+        addChapterLayers(map.current, config.chapters[19]);
+        addChapterLayers(map.current, config.chapters[20]);
       } else if (fourteenVisible) {
-        onChangeChapter(config.chapters[13]);
-        // addChapterLayers(map.current, config.chapters[14])
-        // addChapterLayers(map.current, config.chapters[15])
-        // addChapterLayers(map.current, config.chapters[16])
-        // addChapterLayers(map.current, config.chapters[17])
-        // addChapterLayers(map.current, config.chapters[18])
-        // addChapterLayers(map.current, config.chapters[19])
-        // addChapterLayers(map.current, config.chapters[20])
-        // addChapterLayers(map.current, config.chapters[21])
+        onChangeChapter(config.chapters[21]);
         console.log("Fly to Loc 14");
+        // Membersihkan layer sebelum menambahkan yang baru
+        for (let i = 12; i <= 20; i++) {
+          const chapter = config.chapters[i];
+          if (map.current.getLayer(chapter.layerID)) {
+            map.current.removeLayer(chapter.layerID);
+          }
+          if (map.current.getSource(chapter.sourceID)) {
+            map.current.removeSource(chapter.sourceID);
+          }
+        }
       } else {
-        removeChapterLayers(map.current)
+        removeChapterLayers(map.current);
       }
-    } 
+    }
   }, [
     oneVisible,
     twoVisible,
@@ -320,7 +341,7 @@ const Storytelling = () => {
     elevenVisible,
     twelveVisible,
     thirteenVisible,
-    fourteenVisible
+    fourteenVisible,
   ]);
 
   // MAP COMPONENT (FUNCTION ATAU CONTROL)
@@ -404,14 +425,13 @@ const Storytelling = () => {
           <section className="chapter" ref={sectionTwelve}>
             <TourismStory story={config.chapters[11]} />
           </section>
+          {/* TRANSPORTASI  */}
           <section className="chapter" ref={sectionThirteen}>
             <TourismStory story={config.chapters[12]} />
-            <Link to="/direction-map" className="btn-hero">
-              Tourism Map
-            </Link>
           </section>
+          {/* CLOSING  */}
           <section className="chapter" ref={sectionFourteen}>
-            <TourismStory story={config.chapters[13]} />
+            <TourismStory story={config.chapters[21]} />
           </section>
         </main>
       </section>

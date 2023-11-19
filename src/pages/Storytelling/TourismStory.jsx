@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const TourismStory = ({ story }) => {
   return (
@@ -10,6 +11,11 @@ const TourismStory = ({ story }) => {
       <sub>{story.subtitle}</sub>
       <h1>{story.title}</h1>
       <p>{story.description}</p>
+      {story.button && (
+        <Link to="/direction-map" className="btn-hero">
+          Tourism Map
+        </Link>
+      )}
     </div>
   );
 };
