@@ -4,7 +4,7 @@ import logo from "/jakarta-tourism.svg";
 
 const NavigationBar = () => {
   return (
-    <div>
+    <div className="navigation-bar">
       <Navbar sticky="top" expand="lg">
         <Container fluid className="px-5">
           <Navbar.Brand href="/jakspace-webgis/">
