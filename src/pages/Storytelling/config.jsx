@@ -56,7 +56,7 @@ var config = {
       image: "image-story/story-2.jpg",
       hidden: false,
       description:
-        "Tak hanya dipenuhi gedung tinggi dan perkantoran, Jakarta menjadi salah satu kota dengan destinasi wisata terbanyak di Indonesia. Sedikitnya, ada 10 kategori wisata yang dapat dikunjungi, mulai dari wisata bertema keluarga, sejarah, perbelanjaan, olahraga, seni dan budaya, religi, kuliner, ruang terbuka hijau, dan acara resmi atau pertunjukan, dan alam",
+        "Tak hanya dipenuhi gedung tinggi dan perkantoran, Jakarta menjadi salah satu kota dengan destinasi wisata terbanyak di Indonesia. Sedikitnya, ada 10 kategori wisata yang dapat dikunjungi, mulai dari wisata bertema keluarga, sejarah, perbelanjaan, olahraga, seni dan budaya, religi, kuliner, ruang terbuka hijau, acara resmi atau pertunjukan, dan wisata alam",
       location: {
         center: [106.821428, -6.195368],
         zoom: 16,
