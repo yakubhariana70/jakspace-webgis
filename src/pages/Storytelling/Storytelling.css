@@ -73,6 +73,7 @@
   object-fit: cover;
   object-position: top;
 }
+
 .chapter .btn-hero {
   display: block;
   width: 200px;
@@ -162,6 +163,6 @@
     font-size: calc(10px + 0.310625vw);
   }
   .img-story {
-    height: 30%;
+    height: 200px;
   }
 }
